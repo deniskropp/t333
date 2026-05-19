@@ -164,11 +164,14 @@ t333/
 ├── docs/
 │   └── ocs-space-gen.kl.md   # Master template + Space gen instructions
 ├── templates/
-│   └── space-bootstrap.kl.md # (to be expanded)
+│   └── space-bootstrap.kl.md # Reusable bootstrap
 ├── examples/
 │   └── HelioDeck-init.md     # Example Space initialization
-├── src/                      # Optional Python helpers / parsers for ⫻ sections
-└── tests/                    # Validation of flows & logic
+├── spaces/
+│   ├── AetherWeave-space-init.md
+│   └── ForgeWeave-space-init.md
+├── src/                      # Optional helpers
+└── tests/                    # Validation
 ```
 
 ---
@@ -189,6 +192,20 @@ Example high-level invocation (conceptual):
 ```
 
 The substrate will guide decomposition, agent assignment, and execution.
+
+---
+
+## New Spaces Created with Templates
+
+The following example Spaces were generated directly from the `templates/space-bootstrap.kl.md` and master protocol:
+
+- **AetherWeave** (`spaces/AetherWeave-space-init.md`)  
+  Hybrid creative narrative & world-building lab with emotional resonance tracking, lore consistency, and ethical narrative guardrails. Ideal for stories, games, and lore-heavy projects.
+
+- **ForgeWeave** (`spaces/ForgeWeave-space-init.md`)  
+  Code + creative substrate evolution lab focused on modernization, refactoring, architectural innovation, and documentation. Perfect for extending tXXX systems and technical meta-tools.
+
+These demonstrate practical application of the substrate for both creative and technical domains.
 
 ---
 
@@ -215,4 +232,5 @@ Use responsibly under ethical oversight (Dima layer always active).
 ---
 
 *Substrate initialized: 2026-05-19*  
-*Core: OCS v2.1 + KickLang Space Generation Template*
+*Core: OCS v2.1 + KickLang Space Generation Template*  
+*Latest: New Spaces added — 2026-05-19*
