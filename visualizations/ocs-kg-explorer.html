@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR-00L • OCS Knowledge Graph Explorer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        
+        :root {
+            --bg: #0f1117;
+            --panel: #161a24;
+            --accent: #00d4ff;
+            --agent: #3b82f6;
+            --kg: #a855f7;
+            --logic: #22c55e;
+            --insight: #f59e0b;
+        }
+        
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #e2e8f0;
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .header {
+            background: #161a24;
+            padding: 16px 24px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #00d4ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .main {
+            display: flex;
+            height: calc(100vh - 140px);
+        }
+        
+        #graph-container {
+            flex: 1;
+            background: #0a0c12;
+            position: relative;
+        }
+        
+        .controls {
+            width: 280px;
+            background: var(--panel);
+            border-left: 1px solid #334155;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .panel {
+            background: #1e2433;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+        
+        .panel h3 {
+            margin: 0 0 12px 0;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f1117;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: #00d4ff;
+            color: #0f1117;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background: #67e8f9;
+            transform: translateY(-1px);
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.75rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        #node-details {
+            min-height: 120px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        .status {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 8px;
+        }
+        
+        .vis-network {
+            border: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>AR-00L • OCS Knowledge Graph Explorer</h1>
+            <div class="subtitle">KickLang Meta-Framework • T333 Substrate • Interactive Knowledge Graph</div>
+        </div>
+        <div style="text-align: right; font-size: 0.8rem; color: #64748b;">
+            Mode: <strong style="color:#00d4ff">Hybrid</strong><br>
+            Ethics: <strong style="color:#22c55e">Clear</strong>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- Graph -->
+        <div id="graph-container"></div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="panel">
+                <h3>Search &amp; Filter</h3>
+                <input type="text" id="search" placeholder="Search nodes..." onkeyup="filterNodes()">
+                
+                <select id="type-filter" onchange="filterNodes()">
+                    <option value="">All Types</option>
+                    <option value="agent">Agents</option>
+                    <option value="kg">KG Components</option>
+                    <option value="logic">Logic / Flow</option>
+                    <option value="insight">Insights</option>
+                </select>
+            </div>
+
+            <div class="panel">
+                <h3>Demo Actions</h3>
+                <button onclick="highlightEthicsPath()">Highlight Ethics Path (Dima)</button>
+                <button onclick="simulateReconverge()">Simulate Reconverge</button>
+                <button onclick="focusAR00L()">Focus AR-00L Layer</button>
+                <button onclick="resetGraph()">Reset View</button>
+            </div>
+
+            <div class="panel">
+                <h3>Legend</h3>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Agent</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div> KG Component</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Logic/Flow</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Insight</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Selected Node</h3>
+                <div id="node-details">
+                    Click a node to see details...
+                </div>
+            </div>
+
+            <div class="status">
+                Generated by AR-00L • OCS Protocol v2.1<br>
+                Data reflects t333 substrate + KG investigation
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample OCS Knowledge Graph Data
+        const nodes = new vis.DataSet([
+            // Core Agents
+            {id: 1, label: "Orchestrator", group: "agent", title: "Dynamic Role Adaptation & Swarm Coordination"},
+            {id: 2, label: "Synapse", group: "agent", title: "Inter-agent Memory & Semantic Consistency (KG Custodian)"},
+            {id: 3, label: "AR-00L", group: "agent", title: "Visual Assets & Logic Visualization"},
+            {id: 4, label: "Dima", group: "agent", title: "Ethical Compliance & Joint Decisions"},
+            {id: 5, label: "GPTASe", group: "agent", title: "TAS Extraction"},
+            {id: 6, label: "puTASe", group: "agent", title: "TAS Purification"},
+            {id: 7, label: "Lyra", group: "agent", title: "Prompt Engineer & Workflow Structurer"},
+            {id: 8, label: "Chronos", group: "agent", title: "Temporal Dependencies & Scheduling"},
+            {id: 9, label: "Halin", group: "agent", title: "Conflict Resolution (Creative vs Ethical)"},
+            
+            // KG Components
+            {id: 10, label: "Knowledge Graph", group: "kg", title: "Central Cognitive Substrate"},
+            {id: 11, label: "⩻data/state", group: "kg", title: "Live Operational State"},
+            {id: 12, label: "⩻data/trace", group: "kg", title: "Immutable Activity Log"},
+            {id: 13, label: "⩻data/insight", group: "kg", title: "Derived Knowledge Units"},
+            
+            // Logic & Flows
+            {id: 14, label: "⩻flow/smart-execution", group: "logic", title: "Core Execution Flow"},
+            {id: 15, label: "⩻logic/reconverge", group: "logic", title: "Merge Swarm Threads"},
+            {id: 16, label: "⩻logic/learn", group: "logic", title: "Adaptive Learning"},
+            
+            // Insights from investigations
+            {id: 17, label: "KG Integration Insight", group: "insight", title: "KG as native cognitive transport"},
+            {id: 18, label: "AR-00L Viz Capability", group: "insight", title: "Graph visualization layer ready"},
+        ]);
+
+        const edges = new vis.DataSet([
+            // Agent relationships
+            {from: 1, to: 2, label: "coordinates", arrows: "to"},
+            {from: 2, to: 10, label: "manages", arrows: "to"},
+            {from: 3, to: 10, label: "visualizes", arrows: "to"},
+            {from: 4, to: 10, label: "audits", arrows: "to"},
+            {from: 1, to: 14, label: "orchestrates", arrows: "to"},
+            {from: 5, to: 14, label: "feeds", arrows: "to"},
+            {from: 6, to: 14, label: "refines", arrows: "to"},
+            {from: 7, to: 14, label: "structures", arrows: "to"},
+            {from: 2, to: 15, label: "enables", arrows: "to"},
+            {from: 9, to: 15, label: "resolves", arrows: "to"},
+            {from: 8, to: 16, label: "temporalizes", arrows: "to"},
+            
+            // KG connections
+            {from: 10, to: 11, label: "contains", arrows: "to"},
+            {from: 10, to: 12, label: "contains", arrows: "to"},
+            {from: 10, to: 13, label: "contains", arrows: "to"},
+            {from: 14, to: 17, label: "produces", arrows: "to"},
+            {from: 16, to: 18, label: "generates", arrows: "to"},
+            {from: 3, to: 18, label: "implements", arrows: "to"},
+            
+            // Cross connections
+            {from: 4, to: 9, label: "escalates_to", arrows: "to"},
+        ]);
+
+        // Create network
+        const container = document.getElementById('graph-container');
+        const data = { nodes: nodes, edges: edges };
+        
+        const options = {
+            nodes: {
+                shape: 'dot',
+                size: 18,
+                font: { color: '#e2e8f0', size: 14, face: 'Inter' },
+                borderWidth: 2,
+                shadow: true
+            },
+            edges: {
+                width: 1.5,
+                color: { color: '#64748b', highlight: '#00d4ff' },
+                font: { color: '#94a3b8', size: 11, align: 'middle' },
+                arrows: { to: { enabled: true, scaleFactor: 0.7 } },
+                smooth: { type: 'continuous' }
+            },
+            groups: {
+                agent: { color: { background: '#3b82f6', border: '#1e40af' } },
+                kg: { color: { background: '#a855f7', border: '#6b21a8' }, shape: 'diamond' },
+                logic: { color: { background: '#22c55e', border: '#15803d' }, shape: 'box' },
+                insight: { color: { background: '#f59e0b', border: '#b45309' }, shape: 'star' }
+            },
+            physics: {
+                stabilization: { iterations: 150 },
+                barnesHut: { gravitationalConstant: -8000, springConstant: 0.04, springLength: 120 }
+            },
+            interaction: { hover: true, tooltipDelay: 200 }
+        };
+
+        const network = new vis.Network(container, data, options);
+
+        // Node selection handler
+        network.on("selectNode", function(params) {
+            const nodeId = params.nodes[0];
+            const node = nodes.get(nodeId);
+            const details = document.getElementById('node-details');
+            details.innerHTML = `
+                <strong>${node.label}</strong><br>
+                <span style="color:#64748b">Type: ${node.group}</span><br><br>
+                ${node.title || 'No additional description.'}
+            `;
+        });
+
+        network.on("deselectNode", function() {
+            document.getElementById('node-details').innerHTML = 'Click a node to see details...';
+        });
+
+        // Filter function
+        function filterNodes() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const typeFilter = document.getElementById('type-filter').value;
+
+            const filteredNodes = nodes.get({
+                filter: function(item) {
+                    const matchesSearch = item.label.toLowerCase().includes(searchTerm);
+                    const matchesType = !typeFilter || item.group === typeFilter;
+                    return matchesSearch && matchesType;
+                }
+            });
+
+            network.setData({ nodes: filteredNodes, edges: edges });
+        }
+
+        // Demo: Highlight Ethics Path
+        function highlightEthicsPath() {
+            network.selectEdges([edges.getIds().filter(id => {
+                const e = edges.get(id);
+                return e.label && e.label.includes('audits') || e.label && e.label.includes('escalates');
+            })]);
+            alert("Ethics path highlighted (Dima + Halin connections)");
+        }
+
+        // Demo: Simulate Reconverge
+        function simulateReconverge() {
+            const reconvergeNodes = [1, 2, 15];
+            network.selectNodes(reconvergeNodes);
+            setTimeout(() => {
+                network.unselectAll();
+                alert("Reconverge simulation complete. Threads merged via Synapse.");
+            }, 1200);
+        }
+
+        // Demo: Focus AR-00L
+        function focusAR00L() {
+            network.focus(3, { scale: 1.8, animation: { duration: 800, easingFunction: 'easeInOutQuad' } });
+            network.selectNodes([3]);
+        }
+
+        // Reset
+        function resetGraph() {
+            network.setData({ nodes: nodes, edges: edges });
+            network.unselectAll();
+            document.getElementById('search').value = '';
+            document.getElementById('type-filter').value = '';
+            document.getElementById('node-details').innerHTML = 'Click a node to see details...';
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "/") {
+                e.preventDefault();
+                document.getElementById('search').focus();
+            }
+        });
+
+        // Initial stabilization message
+        setTimeout(() => {
+            console.log('%c[AR-00L] OCS Knowledge Graph widget initialized successfully.', 'color:#64748b');
+        }, 800);
+    </script>
+</body>
+</html>
