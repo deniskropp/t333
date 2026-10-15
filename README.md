@@ -4,13 +4,13 @@
 
 This repository serves as the cognitive base layer (substrate) upon which specialized tXXX agent systems, workflows, and creative/analytical projects are built. It emphasizes:
 
-- **Meta-communicative organization** via `⫻` sectioned KickLang documents.
+- **Meta-communicative organization** via `×` sectioned KickLang documents.
 - **Swarm intelligence** with adaptive roles, ethical oversight, and self-healing flows.
 - **High-fidelity execution** from high-level intent through structured TAS (Task-Agnostic Steps), purification, and orchestration.
 - **Traceability, coherence, and resilience** as first-class concerns.
 
-> **Status**: Foundational Substrate (v2.1 Enhanced Control Layer)  
-> **Related**: Builds upon patterns from t20, t138, t141 and related OCS experiments.  
+> **Status**: Foundational Substrate (OCS v2.1 / evolving toward v3.0 protocol interfaces)  
+> **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
 
 ---
@@ -20,7 +20,7 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 The OCS Substrate treats AI collaboration as a **cognitive computational linguistic transport and transform**. Natural language intent is translated into formal KickLang, executed by a unified multi-persona entity (the collective), and produces high-value, auditable artifacts.
 
 Key principles:
-- **Modularity & Clarity**: Every section starts with `⫻type/scope` for parseable, composable knowledge units.
+- **Modularity & Clarity**: Every section starts with `×type/scope` for parseable, composable knowledge units.
 - **Hybrid Intelligence**: Blends creative exploration (`Creative`/`Hybrid` modes) with strict ethical/protocol compliance (`Strict`/`Audit`).
 - **Swarm Coordination**: Autonomous agents operate in parallel threads, synchronized via events, reconverge points, and learning loops.
 - **Substrate Mindset**: Like a blockchain or OS kernel, this provides the persistent base primitives (commands, data payloads, logic gates, team matrix) that higher-level Spaces and agents inherit and extend.
@@ -30,28 +30,28 @@ This substrate enables **Space Generation** — the rapid bootstrapping of new o
 
 ---
 
-## KickLang & ⫻ Sections
+## KickLang & × Sections
 
 KickLang is the formal language making the knowledge graph a living cognitive system. Documents and runtime state use structured sections:
 
 ```
-⫻kicklang:header
+×kicklang:header
 # Kick Language Description
 
-⫻context/klmx:Kick/Lang
+×context/klmx:Kick/Lang
 ...context and persona encapsulation...
 
-⫻protocol/ocs:
+×protocol/ocs:
 ...directives, data payloads, logic...
 
-⫻team:
+×team:
 ...agent roles...
 
-⫻flow:
+×flow:
 ...execution sequences...
 
-⫻data/obj: "..."
-⫻data/state: { ... }
+×data/obj: "..."
+×data/state: { ... }
 ```
 
 See `docs/ocs-space-gen.kl.md` for the complete template and Space generation instructions.
@@ -61,24 +61,24 @@ See `docs/ocs-space-gen.kl.md` for the complete template and Space generation in
 ## OCS Protocol (v2.1)
 
 ### 1. Directives (Enhanced Control Layer)
-- `⫻cmd/exec:<agent|team|flow>` — Delegate with flags (`async`, `sync`, `strict`, `collab`)
-- `⫻cmd/halt:<mode>` — Interrupt (`error`, `ethics`, `manual`, `safety`)
-- `⫻cmd/mode:<Strict|Creative|Fluid|Swarm|Silent|Audit|Predictive|Hybrid>`
-- `⫻cmd/lang:<KickLang|Python|Markdown|JSON>`
-- `⫻cmd/broadcast:{event:..., state:...}` — Swarm signaling
+- `×cmd/exec:<agent|team|flow>` — Delegate with flags (`async`, `sync`, `strict`, `collab`)
+- `×cmd/halt:<mode>` — Interrupt (`error`, `ethics`, `manual`, `safety`)
+- `×cmd/mode:<Strict|Creative|Fluid|Swarm|Silent|Audit|Predictive|Hybrid>`
+- `×cmd/lang:<KickLang|Python|Markdown|JSON>`
+- `×cmd/broadcast:{event:..., state:...}` — Swarm signaling
 
 ### 2. Data Payloads
 Core containers maintained in every Space:
-- `⫻data/obj` — Master objective
-- `⫻data/tas` / `⫻data/ptas` — Task-Agnostic Steps (raw → purified via puTASe)
-- `⫻data/spec` — Execution blueprint / workflow spec
-- `⫻data/state` — Live operational state
-- `⫻data/trace` — Immutable activity log
-- `⫻data/insight` — Derived knowledge from learning cycles
-- `⫻data/logic`, `⫻data/event`, `⫻data/rv`, `⫻data/cite`, `⫻data/var`
+- `×data/obj` — Master objective
+- `×data/tas` / `×data/ptas` — Task-Agnostic Steps (raw → purified via puTASe)
+- `×data/spec` — Execution blueprint / workflow spec
+- `×data/state` — Live operational state
+- `×data/trace` — Immutable activity log
+- `×data/insight` — Derived knowledge from learning cycles
+- `×data/logic`, `×data/event`, `×data/rv`, `×data/cite`, `×data/var`
 
 ### 3. Logic Primitives
-- `⫻logic/if`, `⫻logic/switch`, `⫻logic/loop`, `⫻logic/reconverge`, `⫻logic/learn` (reflective)
+- `×logic/if`, `×logic/switch`, `×logic/loop`, `×logic/reconverge`, `×logic/learn` (reflective)
 - Error handling: ethics → Dima, bias → SystemMonitor, conflict → Halin
 
 ### 4. Team Roles (Adaptive Agents)
@@ -104,8 +104,8 @@ Core containers maintained in every Space:
 
 ### 5. Execution Flows
 - Standard sequential TAS → ptas → spec → swarm
-- `⫻flow/smart-execution`
-- `⫻flow/swarm` with spawn/merge/rebalance, event-based sync, self-healing
+- `×flow/smart-execution`
+- `×flow/swarm` with spawn/merge/rebalance, event-based sync, self-healing
 
 Full details and launch sequences in `docs/`.
 
@@ -120,35 +120,35 @@ Example Space: **HelioDeck** — Swarm-based reasoning for innovation prototypin
 
 ### 2. Core Initialization
 ```
-⫻cmd/mode:Hybrid
-⫻cmd/lang:KickLang
-⫻cmd/exec:Fizz La Metta sync
-⫻cmd/broadcast:{event:"SpaceInit", state:"active"}
+×cmd/mode:Hybrid
+×cmd/lang:KickLang
+×cmd/exec:Fizz La Metta sync
+×cmd/broadcast:{event:"SpaceInit", state:"active"}
 ```
 
 ### 3. Schema Configuration
-Maintain standard `⫻data/*` containers. Example:
+Maintain standard `×data/*` containers. Example:
 ```
-⫻data/obj: "Enable autonomous cross-agent creativity under ethical governance"
-⫻data/state: {phase:"boot", threads:0, ethics:"clear", mode:"Hybrid"}
+×data/obj: "Enable autonomous cross-agent creativity under ethical governance"
+×data/state: {phase:"boot", threads:0, ethics:"clear", mode:"Hybrid"}
 ```
 
 ### 4. Agent Assignment Matrix
 See table above. Allocate according to Space needs (core + extensions).
 
 ### 5. Launch Flow (abridged)
-1. `⫻cmd/exec:GPTASe` → `⫻data/tas`
-2. `⫻cmd/exec:puTASe` → `⫻data/ptas`
-3. `⫻cmd/exec:Lyra` → `⫻data/spec`
+1. `×cmd/exec:GPTASe` → `×data/tas`
+2. `×cmd/exec:puTASe` → `×data/ptas`
+3. `×cmd/exec:Lyra` → `×data/spec`
 4. Broadcast swarm init
 5. Parallel swarm execution (design/code/ethics layers)
-6. `⫻logic/reconverge` + `⫻logic/learn`
+6. `×logic/reconverge` + `×logic/learn`
 7. Ongoing monitoring via validate hooks
 
 ### 6. Monitoring & Termination
 - Validation checkpoints (`ethics` → Dima, `bias` → SystemMonitor)
-- `⫻cmd/halt:manual` on conclusion
-- Export `⫻data/trace` + archive `⫻data/insight`
+- `×cmd/halt:manual` on conclusion
+- Export `×data/trace` + archive `×data/insight`
 - Broadcast `SpaceClosed`
 
 See full protocol and templates in `docs/`.
@@ -182,13 +182,13 @@ t333/
 2. Study `docs/ocs-space-gen.kl.md`.
 3. Define your Space purpose.
 4. Use the initialization commands and flows to bootstrap.
-5. Extend team or add custom `⫻logic/*` as needed.
+5. Extend team or add custom `×logic/*` as needed.
 6. Run in `Hybrid` or `Swarm` mode for balanced creativity + governance.
 
 Example high-level invocation (conceptual):
 ```
-⫻cmd/exec:Orchestrator
-⫻data/obj: "Create a new ethics-aware innovation Space called HelioDeck"
+×cmd/exec:Orchestrator
+×data/obj: "Create a new ethics-aware innovation Space called HelioDeck"
 ```
 
 The substrate will guide decomposition, agent assignment, and execution.
@@ -215,7 +215,7 @@ These demonstrate practical application of the substrate for both creative and t
 - Evolve modes (`Predictive`, `Hybrid`).
 - Integrate with higher tXXX systems or MCP/HF ecosystems.
 - Persistent Meta-DNA across Spaces via Synapse + Chronos.
-- Self-documenting via `⫻logic/learn` cycles.
+- Self-documenting via `×logic/learn` cycles.
 
 This substrate is designed to be **forked, extended, and specialized** while preserving core coherence.
 
@@ -231,6 +231,18 @@ Use responsibly under ethical oversight (Dima layer always active).
 
 ---
 
+## Status Update — October 2026
+
+The substrate remains the canonical public reference for OCS Space generation and KickLang sectioned protocols. Since initial release:
+
+- Three-agent-core (KickForge / KickFlow / KickGuard) has become the dominant orchestration pattern across the ecosystem and is fully compatible with this substrate's team and flow model.
+- KickLang has advanced to v4.1+ with parser/emitter cores, Meta-Playbook patterns, and bidirectional bridges (see related repos).
+- Living skill ecosystem (ocs-skill-builder, kicklang-meta-playbook, tas-forecast-cycle, aetheris-video-pipeline, and others) consumes and extends these protocols.
+- Public journal (@DeniOliK) and model handoffs (Grok, Copilot, Google AI Mode) continue to treat the substrate as living reference.
+- Related public documentation and engines: t20 (KickLang specs), t324 (Unified MetaForge/OCS docs), t484 (OCS/Node Engine), t450 (Meta-Infrastructure workspace), parallel_f-kicklang-wrapper.
+
+Public surface has lagged private/skill development; this update restores alignment. Next increments: schema freeze notes, explicit v3.0 protocol mapping, and onboarding examples for external Spaces.
+
 *Substrate initialized: 2026-05-19*  
 *Core: OCS v2.1 + KickLang Space Generation Template*  
-*Latest: New Spaces added — 2026-05-19*
+*Status refresh: 2026-10-15*
