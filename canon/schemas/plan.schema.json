@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/plan.schema.json",
+  "title": "Plan",
+  "type": "object",
+  "properties": {
+    "reasoning": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "$ref": "role.schema.json"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "task.schema.json"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "roles",
+    "tasks"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,11 @@
+{
+  "reasoning": "Erst Anforderungen klären, dann implementieren und prüfen.",
+  "roles": [
+    {"title": "Planner", "description": "Zerlegt das Ziel in Tasks"},
+    {"title": "Engineer", "description": "Setzt Tasks um"}
+  ],
+  "tasks": [
+    {"task_id": "T1", "task": "Anforderungen sammeln", "role": "Planner", "name": "planner-1", "requires": []},
+    {"task_id": "T2", "task": "Prototyp bauen", "role": "Engineer", "name": "engineer-1", "requires": ["T1"]}
+  ]
+}
