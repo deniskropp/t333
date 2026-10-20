@@ -19,10 +19,10 @@ Inherits all primitives from **T333 OCS Substrate**.
 ## Core Initialization Commands
 
 ```
-⨻ cmd/mode:Hybrid
-⨻ cmd/lang:KickLang
-⨻ cmd/exec:Fizz La Metta sync
-⨻ cmd/broadcast:{event:"SpaceInit", state:"active", space:"AetherWeave"}
+⫻ cmd/mode:Hybrid
+⫻ cmd/lang:KickLang
+⫻ cmd/exec:Fizz La Metta sync
+⫻ cmd/broadcast:{event:"SpaceInit", state:"active", space:"AetherWeave"}
 ```
 
 ---
@@ -30,8 +30,8 @@ Inherits all primitives from **T333 OCS Substrate**.
 ## Space Schema Configuration
 
 ```
-⨻ data/obj: "Create emotionally resonant, ethically coherent narrative worlds and branching stories through swarm collaboration"
-⨻ data/state: {
+⫻ data/obj: "Create emotionally resonant, ethically coherent narrative worlds and branching stories through swarm collaboration"
+⫻ data/state: {
   phase: "boot",
   threads: 0,
   ethics: "clear",
@@ -40,7 +40,7 @@ Inherits all primitives from **T333 OCS Substrate**.
   resonance: "target-high",
   iteration: 0
 }
-⨻ data/trace: "AetherWeave immutable session log"
+⫻ data/trace: "AetherWeave immutable session log"
 ```
 
 ---
@@ -67,17 +67,17 @@ Inherits all primitives from **T333 OCS Substrate**.
 
 ## Launch Flow (AetherWeave Variant)
 
-1. `⨻ cmd/exec:GPTASe` → Extract high-level narrative TAS from objective.
-2. `⨻ cmd/exec:puTASe` → Purify into clean story steps.
-3. `⨻ cmd/exec:Lyra` → Generate `⨻ data/spec` (narrative blueprint + emotion map).
-4. `⨻ cmd/broadcast:{event:"phase:init:swarm", space:"AetherWeave"}`
+1. `⫻ cmd/exec:GPTASe` → Extract high-level narrative TAS from objective.
+2. `⫻ cmd/exec:puTASe` → Purify into clean story steps.
+3. `⫻ cmd/exec:Lyra` → Generate `⫻ data/spec` (narrative blueprint + emotion map).
+4. `⫻ cmd/broadcast:{event:"phase:init:swarm", space:"AetherWeave"}`
 5. **Parallel Creative Swarm:**
    - WorldWeaver + AR-00L → World & visual lore artifacts
    - EmotionWeave + Synapse → Emotional resonance tracking + memory
    - BranchWeaver + LoreKeeper → Branching paths + codex consistency
    - Dima + Halin → Ethical & tonal guardrails
-6. `⨻ logic/reconverge:"aetherweave-streams"`
-7. `⨻ logic/learn:"Refine emotional heuristics and narrative resonance from feedback"`
+6. `⫻ logic/reconverge:"aetherweave-streams"`
+7. `⫻ logic/learn:"Refine emotional heuristics and narrative resonance from feedback"`
 8. Maintain `Hybrid` mode with active monitoring and iteration gates.
 
 ---
@@ -85,10 +85,10 @@ Inherits all primitives from **T333 OCS Substrate**.
 ## Monitoring, Validation & Resonance Hooks
 
 ```
-⨻ logic/validate: ethics → Dima
-⨻ logic/validate: narrative_coherence → Synapse + LoreKeeper
-⨻ logic/validate: emotional_resonance → EmotionWeave
-⨻ cmd/broadcast:{event:"InsightGenerated", target:"aetherweave-trace", space:"AetherWeave"}
+⫻ logic/validate: ethics → Dima
+⫻ logic/validate: narrative_coherence → Synapse + LoreKeeper
+⫻ logic/validate: emotional_resonance → EmotionWeave
+⫻ cmd/broadcast:{event:"InsightGenerated", target:"aetherweave-trace", space:"AetherWeave"}
 ```
 
 Specialized checkpoints for shadow costs, emotional balance, and lore drift.
@@ -97,10 +97,10 @@ Specialized checkpoints for shadow costs, emotional balance, and lore drift.
 
 ## Termination & Archive
 
-On completion or `⨻ cmd/halt:manual`:
-- Export full `⨻ data/trace` + emotional resonance logs
+On completion or `⫻ cmd/halt:manual`:
+- Export full `⫻ data/trace` + emotional resonance logs
 - Archive final world atlas, codex, story bible, and validated branches
-- `⨻ cmd/broadcast:{event:"SpaceClosed", reason:"complete", space:"AetherWeave"}`
+- `⫻ cmd/broadcast:{event:"SpaceClosed", reason:"complete", space:"AetherWeave"}`
 - Optional: Seed new specialized creative repo or continue in iterative cycles
 
 ---

@@ -79,7 +79,7 @@ Core containers maintained in every Space:
 
 ### 3. Logic Primitives
 - `⫻logic/if`, `⫻logic/switch`, `⫻logic/loop`, `⫻logic/reconverge`, `⫻logic/learn` (reflective)
-- Error handling: ethics → Dima, bias → SystemMonitor, conflict → Halin
+- Monitoring layer: `⫻logic/error` (ethics → Dima, bias → SystemMonitor, conflict → Halin) and `⫻logic/validate` (integrity checkpoints)
 
 ### 4. Team Roles (Adaptive Agents)
 
@@ -98,14 +98,24 @@ Core containers maintained in every Space:
 | Kick La Metta     | NL to Formal Translation                    | - |
 | Orchestrator      | Dynamic Role Adaptation / Holistic / Swarm  | Central flow control |
 | SystemMonitor     | Integrity Monitoring                        | Validation checkpoints |
-| **Synapse**       | Inter-agent memory & semantic consistency   | New in v2.1 |
-| **Chronos**       | Temporal dependencies & scheduling          | New in v2.1 |
-| **Halin**         | Conflict resolution (creative vs ethical)   | New in v2.1 |
+| **Synapse**       | Inter-agent memory & semantic consistency   | NewOCS addition |
+| **Chronos**       | Temporal dependencies & scheduling          | NewOCS addition |
+| **Halin**         | Conflict resolution (creative vs ethical)   | NewOCS addition |
 
-### 5. Execution Flows
+### 5. Execution Flows (Swarm+)
 - Standard sequential TAS → ptas → spec → swarm
 - `⫻flow/smart-execution`
 - `⫻flow/swarm` with spawn/merge/rebalance, event-based sync, self-healing
+
+### 6. Meta Rules (NewOCS addition)
+- `⫻rule/self-adaptation` — agents adjust internal behavior via reflective logic
+- `⫻rule/transparency` — every execution command produces an auditable trace
+- `⫻rule/fallback` — control ownership ambiguities resolved through Fizz La Metta
+
+### 7. KickLang Layers (NewOCS addition)
+- **ISO-style specification** — role-bound, graph-native cognitive orchestration language (normative refs, conformance, syntax, semantics, governance, formal grammar)
+- **Cognitive Transform Layer (CTL)** — converts NL/symbolic intents into coherent graph operations
+- **Bridge Layer** — binds cognitive flow to agent execution via hierarchical feedback loops
 
 Full details and launch sequences in `docs/`.
 
@@ -166,12 +176,12 @@ t333/
 ├── templates/
 │   └── space-bootstrap.kl.md # Reusable bootstrap
 ├── examples/
-│   └── HelioDeck-init.md     # Example Space initialization
+│   └── HelioDeck-space-init.md   # Example Space initialization
 ├── spaces/
 │   ├── AetherWeave-space-init.md
 │   └── ForgeWeave-space-init.md
-├── src/                      # Optional helpers
-└── tests/                    # Validation
+└── visualizations/
+    └── ocs-kg-explorer.html      # OCS knowledge-graph explorer
 ```
 
 ---
