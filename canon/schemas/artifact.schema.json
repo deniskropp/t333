@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/artifact.schema.json",
+  "title": "Artifact",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content": {},
+    "media_type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "content"
+  ],
+  "additionalProperties": false
+}

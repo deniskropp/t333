@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/agent-output.schema.json",
+  "title": "AgentOutput",
+  "type": "object",
+  "properties": {
+    "output": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "artifact.schema.json"
+      }
+    }
+  },
+  "required": [
+    "output"
+  ],
+  "additionalProperties": false
+}

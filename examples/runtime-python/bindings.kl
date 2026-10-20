@@ -1,0 +1,67 @@
+# NICHT-KANONISCH — Beispiel-Bindings der Python-Runtime
+# referenziert: t333 canon 2.2.0-draft (canon/runtime.kl)
+# Anbieter, Loader und Dateipfade sind Implementierungsdetails.
+
+concept RuntimeConfig {
+  description: "Configuration of the Python runtime (implementation-specific)."
+  schema_ref: "runtime-config.schema.json"
+  properties: {
+    default_agent: "string",
+    max_concurrent_agents: "integer",
+    logging_level: "string",
+    api_endpoints: "map<string, string>"
+  }
+}
+
+concept Factory {
+  description: "Creates an LLM binding for a given model_id (was: species)."
+  input: { model_id: "string" }
+  output: "Result<LLM, Error>"
+}
+
+concept GetClient {
+  description: "Returns the provider SDK client."
+  output: "any"
+}
+
+concept Gemini {
+  description: "LLM binding for Google GenAI models."
+  implements: "LLM"
+  properties: { client: "any", model_id: "string" }
+  functions: [GenerateContent, GetClient]
+}
+
+concept Olli {
+  description: "LLM binding for Ollama models."
+  implements: "LLM"
+  properties: { client: "any", model_id: "string" }
+  functions: [GenerateContent, GetClient]
+}
+
+concept Kimi {
+  description: "LLM binding for HuggingFace InferenceClient (e.g. Kimi-K2-Instruct)."
+  implements: "LLM"
+  properties: { client: "any", model_id: "string" }
+  functions: [GenerateContent, GetClient]
+}
+
+concept FileArtifactStore {
+  description: "ArtifactStore backed by a session directory (former Session.session_dir)."
+  implements: "ArtifactStore"
+  properties: { session_dir: "string" }
+}
+
+concept LoadConfig {
+  input: { config_path: "string" }
+  output: "Result<RuntimeConfig, Error>"
+}
+
+concept LoadAgentTemplates {
+  input: { agents_dir: "string", config: "RuntimeConfig", default_model_id: "string" }
+  output: "Result<list<map<string, any>>, Error>"   # inputs for InstantiateAgent
+}
+
+concept LoadPrompts {
+  input: { prompts_dir: "string" }
+  output: "Result<map<string, string>, Error>"
+}
