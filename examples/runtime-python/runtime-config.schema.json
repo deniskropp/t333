@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/runtime-config.schema.json",
+  "title": "RuntimeConfig (Python-Runtime, nicht kanonisch)",
+  "type": "object",
+  "properties": {
+    "default_agent": {
+      "type": "string"
+    },
+    "max_concurrent_agents": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "logging_level": {
+      "enum": [
+        "DEBUG",
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ]
+    },
+    "api_endpoints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "uri"
+      }
+    }
+  },
+  "required": [
+    "default_agent"
+  ],
+  "additionalProperties": false
+}

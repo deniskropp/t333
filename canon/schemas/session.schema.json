@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/session.schema.json",
+  "title": "Session (serialisierbarer Teil)",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "enum": [
+        "init",
+        "running",
+        "done",
+        "failed"
+      ]
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "model_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "role"
+        ]
+      }
+    },
+    "store_ref": {
+      "type": "string",
+      "description": "Opaque ArtifactStore identifier (URI); no filesystem assumption"
+    }
+  },
+  "required": [
+    "session_id",
+    "state"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,271 @@
+# t333 canon — Runtime-Kernkonzepte
+# canon-version: 2.2.0-draft
+# status: NORMATIV (implementierungsneutral). Bindings siehe examples/.
+# Datenkonzepte haben ein JSON Schema unter canon/schemas/<name>.schema.json
+
+# ---------- Grundtypen ----------
+
+concept Error {
+  description: "Structured error returned instead of free-form error strings."
+  schema_ref: "schemas/error.schema.json"
+  properties: {
+    code: "string",            # e.g. "llm_unavailable", "invalid_plan", "task_failed", "not_found"
+    message: "string",
+    details: "optional<map<string, any>>",
+    retryable: "boolean"
+  }
+}
+
+concept Result {
+  description: "Generic outcome type Result<T, E>: exactly one of value or error is set."
+  type_params: [T, E]
+  properties: {
+    ok: "boolean",
+    value: "optional<T>",
+    error: "optional<E>"
+  }
+}
+
+concept SchemaRef {
+  description: "Reference (URI or relative path) to a JSON Schema 2020-12 document."
+  properties: {
+    uri: "string"
+  }
+}
+
+# ---------- Daten ----------
+
+concept Role {
+  description: "The definition of an agent's role within the system."
+  schema_ref: "schemas/role.schema.json"
+  properties: {
+    title: "string",
+    description: "string"
+  }
+}
+
+concept Task {
+  description: "A specific unit of work to be performed by an agent."
+  schema_ref: "schemas/task.schema.json"
+  properties: {
+    task_id: "string",
+    task: "string",
+    role: "string",              # references Role.title
+    name: "string",              # references Agent.name
+    requires: "list<string>"     # list of task_ids (must form a DAG)
+  }
+}
+
+concept Plan {
+  description: "A structured sequence of roles and tasks to achieve a goal."
+  schema_ref: "schemas/plan.schema.json"
+  properties: {
+    reasoning: "string",
+    roles: "list<Role>",
+    tasks: "list<Task>"
+  }
+}
+
+concept Artifact {
+  description: "A named piece of data produced during task execution."
+  schema_ref: "schemas/artifact.schema.json"
+  properties: {
+    name: "string",
+    content: "any",
+    media_type: "optional<string>"   # e.g. "text/markdown"
+  }
+}
+
+concept AgentOutput {
+  description: "The structured output produced by an agent after completing a task."
+  schema_ref: "schemas/agent-output.schema.json"
+  properties: {
+    output: "string",
+    files: "list<Artifact>"
+  }
+}
+
+# ---------- Speicher ----------
+
+concept ArtifactStore {
+  description: "Abstract key/value store for artifacts. No assumption about filesystem, database or memory."
+  functions: [PutArtifact, FetchArtifact]
+}
+
+concept PutArtifact {
+  input: { name: "string", content: "any" }
+  output: "Result<void, Error>"
+}
+
+concept FetchArtifact {
+  input: { name: "string" }
+  output: "Result<Artifact, Error>"   # error.code = "not_found" if missing
+}
+
+# ---------- LLM (abstrakt) ----------
+
+concept LLM {
+  description: "Abstract interface to a generative model. Providers are bindings, not canon."
+  properties: {
+    model_id: "string"           # unifies former Agent.model and LLM.species
+  }
+  functions: [GenerateContent]
+}
+
+concept GenerateContent {
+  description: "Generates content using an LLM."
+  input: {
+    model_id: "string",
+    contents: "string",
+    system_instruction: "string",
+    temperature: "float",
+    response_mime_type: "optional<string>",
+    schema_ref: "optional<SchemaRef>"   # JSON Schema the response must satisfy
+  }
+  output: "Result<string, Error>"
+}
+
+# ---------- Agenten ----------
+
+concept Agent {
+  description: "A runtime agent instance capable of executing tasks."
+  properties: {
+    name: "string",
+    role: "string",
+    goal: "string",
+    model_id: "string",
+    system_prompt: "string",
+    team: "map<string, Agent>",   # by name
+    llm: "LLM"
+  }
+  functions: [UpdateSystemPrompt, ExecuteTask]
+}
+
+concept UpdateSystemPrompt {
+  description: "Updates the agent's system prompt."
+  input: { new_prompt: "string" }
+  output: "void"
+}
+
+concept ExecuteTask {
+  description: "Executes the current task of the context with the agent's LLM."
+  input: { context: "ExecutionContext" }
+  output: "Result<AgentOutput, Error>"
+}
+
+concept InstantiateAgent {
+  description: "Instantiates an Agent from a specification."
+  input: {
+    agent_spec: "map<string, any>",
+    prompts: "map<string, string>",
+    all_agent_specs: "list<map<string, any>>"
+  }
+  output: "Result<Agent, Error>"
+}
+
+concept FindAgentByRole {
+  description: "Finds an agent in a list by its role."
+  input: { agents: "list<Agent>", role: "string" }
+  output: "optional<Agent>"
+}
+
+# ---------- Ausführung ----------
+
+concept Session {
+  description: "Runtime context of a workflow run."
+  schema_ref: "schemas/session.schema.json"
+  properties: {
+    session_id: "string",
+    agents: "list<Agent>",
+    state: "string",              # e.g. "init" | "running" | "done" | "failed"
+    store: "ArtifactStore"
+  }
+  functions: [AddArtifact, GetArtifact]
+}
+
+concept AddArtifact {
+  description: "Stores an artifact in the session's ArtifactStore."
+  input: { name: "string", content: "any" }
+  output: "Result<void, Error>"
+}
+
+concept GetArtifact {
+  description: "Loads an artifact from the session's ArtifactStore."
+  input: { name: "string" }
+  output: "Result<Artifact, Error>"
+}
+
+concept ExecutionContext {
+  description: "State and context for a multi-agent workflow."
+  schema_ref: "schemas/execution-context.schema.json"
+  properties: {
+    session: "Session",
+    high_level_goal: "string",
+    plan: "Plan",
+    step_index: "integer",
+    round_num: "integer",
+    artifacts: "map<string, any>"   # working memory (remembered artifacts)
+  }
+  functions: [CurrentStep, RememberArtifact, RecordArtifact]
+}
+
+concept CurrentStep {
+  description: "Returns the current task of the plan (plan.tasks[step_index])."
+  output: "Result<Task, Error>"
+}
+
+concept RememberArtifact {
+  description: "Keeps an artifact in the context's working memory for later tasks."
+  input: { key: "string", value: "any" }
+  output: "void"
+}
+
+concept RecordArtifact {
+  description: "Persists an artifact via Session.AddArtifact and optionally remembers it."
+  input: { key: "string", value: "any", mem: "boolean" }
+  output: "Result<void, Error>"
+}
+
+# ---------- Orchestrierung ----------
+
+concept Orchestrator {
+  description: "Agent that creates and manages a plan for multi-agent workflows."
+  extends: "Agent"
+  functions: [StartWorkflow, CheckNewPrompts, CheckNewPrompt, GeneratePlan]
+}
+
+concept StartWorkflow {
+  input: {
+    session: "Session",
+    initial_task: "string",
+    rounds: "integer",
+    plan_only: "boolean",
+    inputs: "list<Artifact>"        # was: files (paths)
+  }
+  output: "Result<void, Error>"
+}
+
+concept CheckNewPrompts {
+  description: "Traverses a data structure and applies every prompt update found."
+  input: { session: "Session", data_structure: "any" }
+  output: "void"
+}
+
+concept CheckNewPrompt {
+  description: "Applies one prompt update to the named agent."
+  input: {
+    session: "Session",
+    obj: "map<string, any>"   # keys: target_agent_name, new_system_prompt
+  }
+  output: "Result<void, Error>"
+}
+
+concept GeneratePlan {
+  description: "Asks the LLM for a structured plan (schema_ref: schemas/plan.schema.json)."
+  input: {
+    session: "Session",
+    high_level_goal: "string",
+    inputs: "list<Artifact>"        # was: file_contents map
+  }
+  output: "Result<Plan, Error>"
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/execution-context.schema.json",
+  "title": "ExecutionContext (serialisierbarer Teil)",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "high_level_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plan": {
+      "$ref": "plan.schema.json"
+    },
+    "step_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "round_num": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "artifacts": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "session_id",
+    "high_level_goal",
+    "plan",
+    "step_index",
+    "round_num"
+  ],
+  "additionalProperties": false
+}
