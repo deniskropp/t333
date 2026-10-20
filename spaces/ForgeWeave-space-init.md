@@ -19,10 +19,10 @@ Inherits full protocol from **T333 OCS Substrate**.
 ## Core Initialization Commands
 
 ```
-⨻ cmd/mode:Hybrid
-⨻ cmd/lang:KickLang
-⨻ cmd/exec:Fizz La Metta sync
-⨻ cmd/broadcast:{event:"SpaceInit", state:"active", space:"ForgeWeave"}
+⫻ cmd/mode:Hybrid
+⫻ cmd/lang:KickLang
+⫻ cmd/exec:Fizz La Metta sync
+⫻ cmd/broadcast:{event:"SpaceInit", state:"active", space:"ForgeWeave"}
 ```
 
 ---
@@ -30,8 +30,8 @@ Inherits full protocol from **T333 OCS Substrate**.
 ## Space Schema Configuration
 
 ```
-⨻ data/obj: "Evolve and modernize code substrates, agent frameworks, and meta-tools through rigorous + creative swarm collaboration"
-⨻ data/state: {
+⫻ data/obj: "Evolve and modernize code substrates, agent frameworks, and meta-tools through rigorous + creative swarm collaboration"
+⫻ data/state: {
   phase: "boot",
   threads: 0,
   ethics: "clear",
@@ -64,17 +64,17 @@ Inherits full protocol from **T333 OCS Substrate**.
 
 ## Launch Flow (ForgeWeave Variant)
 
-1. `⨻ cmd/exec:GPTASe` → Decompose modernization objective into TAS.
-2. `⨻ cmd/exec:puTASe` → Purify technical steps.
-3. `⨻ cmd/exec:Lyra` → Build detailed `⨻ data/spec` (refactor plan + creative extensions).
+1. `⫻ cmd/exec:GPTASe` → Decompose modernization objective into TAS.
+2. `⫻ cmd/exec:puTASe` → Purify technical steps.
+3. `⫻ cmd/exec:Lyra` → Build detailed `⫻ data/spec` (refactor plan + creative extensions).
 4. Swarm activation broadcast.
 5. **Parallel Execution:**
    - Codein + RefactorWeaver + Kodax → Core code modernization
    - ArchWeaver + Orchestrator → Architectural proposals
    - DocWeaver + TestWeaver → Documentation & test coverage
    - Dima + SystemMonitor → Compliance & safety checks
-6. `⨻ logic/reconverge:"forgeweave-streams"`
-7. `⨻ logic/learn:"Update refactoring heuristics and pattern library"`
+6. `⫻ logic/reconverge:"forgeweave-streams"`
+7. `⫻ logic/learn:"Update refactoring heuristics and pattern library"`
 8. Continue in Hybrid mode with validation gates.
 
 ---
@@ -82,10 +82,10 @@ Inherits full protocol from **T333 OCS Substrate**.
 ## Monitoring & Validation
 
 ```
-⨻ logic/validate: ethics_and_safety → Dima
-⨻ logic/validate: code_quality → SystemMonitor + Codein
-⨻ logic/validate: architectural_coherence → ArchWeaver + Synapse
-⨻ cmd/broadcast:{event:"CodeInsightGenerated", target:"forgeweave-trace"}
+⫻ logic/validate: ethics_and_safety → Dima
+⫻ logic/validate: code_quality → SystemMonitor + Codein
+⫻ logic/validate: architectural_coherence → ArchWeaver + Synapse
+⫻ cmd/broadcast:{event:"CodeInsightGenerated", target:"forgeweave-trace"}
 ```
 
 ---
