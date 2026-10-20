@@ -10,6 +10,7 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 - **Traceability, coherence, and resilience** as first-class concerns.
 
 > **Status**: Foundational Substrate (OCS v2.1 / evolving toward v3.0 protocol interfaces)  
+> **Normative Runtime**: canon 2.2.0-draft (`canon/runtime.kl` + JSON Schema 2020-12)  
 > **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
 
@@ -27,6 +28,26 @@ Key principles:
 - **Ethical & Resilient Core**: Dima + SystemMonitor + Halin ensure integrity; self-healing on minor failures.
 
 This substrate enables **Space Generation** — the rapid bootstrapping of new operational contexts (e.g., innovation labs, ethics simulators, design workspaces) with consistent protocols.
+
+---
+
+## Normative Runtime Layer (canon 2.2.0-draft)
+
+The `canon/` directory contains the **implementierungsneutral** runtime kernel. It defines typed, schema-backed primitives that higher Spaces and flows inherit.
+
+- **`canon/runtime.kl`** — Normative concepts (Error, Result<T,E>, ArtifactStore, Plan, ExecutionContext, Session, LLM, Orchestrator, …)
+- **`canon/schemas/*.schema.json`** — JSON Schema Draft 2020-12 for serializable data concepts
+- **`CHANGES.md`** — Delta from prior informal types to the locked 2.2.0-draft surface
+
+Key contracts introduced:
+- All fallible operations return `Result<T, Error>` (no free-form error strings or null)
+- Persistence is exclusively via abstract `ArtifactStore` (no filesystem assumption in canon)
+- `ExecutionContext.plan` is a typed `Plan` (DAG of Tasks)
+- Unified `model_id` for Agent and LLM
+
+Non-canonical bindings and loaders live under `examples/runtime-python/`.
+
+Validation reference: `tools/validate.py` + `examples/sample-plan.json`.
 
 ---
 
@@ -170,16 +191,24 @@ See full protocol and templates in `docs/`.
 ```
 t333/
 ├── README.md                 # This file (substrate definition)
+├── CHANGES.md                 # Canon 2.2.0-draft delta
 ├── .gitignore
+├── canon/
+│   ├── runtime.kl              # Normative runtime kernel (2.2.0-draft)
+│   └── schemas/                # JSON Schema 2020-12 (Plan, Task, Error, Session, …)
 ├── docs/
 │   └── ocs-space-gen.kl.md   # Master template + Space gen instructions
 ├── templates/
 │   └── space-bootstrap.kl.md # Reusable bootstrap
 ├── examples/
-│   └── HelioDeck-space-init.md   # Example Space initialization
+│   ├── HelioDeck-space-init.md
+│   ├── sample-plan.json       # Valid Plan example
+│   └── runtime-python/        # Non-canonical bindings & config schema
 ├── spaces/
 │   ├── AetherWeave-space-init.md
 │   └── ForgeWeave-space-init.md
+├── tools/
+│   └── validate.py            # Schema + sample validation reference
 └── visualizations/
     └── ocs-kg-explorer.html      # OCS knowledge-graph explorer
 ```
@@ -189,7 +218,7 @@ t333/
 ## Getting Started
 
 1. Clone / initialize this substrate.
-2. Study `docs/ocs-space-gen.kl.md`.
+2. Study `docs/ocs-space-gen.kl.md` and the normative kernel in `canon/runtime.kl`.
 3. Define your Space purpose.
 4. Use the initialization commands and flows to bootstrap.
 5. Extend team or add custom `⫻logic/*` as needed.
@@ -226,6 +255,7 @@ These demonstrate practical application of the substrate for both creative and t
 - Integrate with higher tXXX systems or MCP/HF ecosystems.
 - Persistent Meta-DNA across Spaces via Synapse + Chronos.
 - Self-documenting via `⫻logic/learn` cycles.
+- Extend the normative kernel under `canon/` while keeping bindings in `examples/`.
 
 This substrate is designed to be **forked, extended, and specialized** while preserving core coherence.
 
@@ -248,6 +278,7 @@ The substrate remains the canonical public reference for OCS Space generation an
 - Three-agent-core (KickForge / KickFlow / KickGuard) has become the dominant orchestration pattern across the ecosystem and is fully compatible with this substrate's team and flow model.
 - KickLang has advanced to v4.1+ with parser/emitter cores, Meta-Playbook patterns, and bidirectional bridges (see related repos).
 - Living skill ecosystem (ocs-skill-builder, kicklang-meta-playbook, tas-forecast-cycle, aetheris-video-pipeline, and others) consumes and extends these protocols.
+- **Normative runtime layer (canon 2.2.0-draft)** is now public: typed Result/Error, abstract ArtifactStore, schema-validated Plan/Task/Session.
 - Public journal (@DeniOliK) and model handoffs (Grok, Copilot, Google AI Mode) continue to treat the substrate as living reference.
 - Related public documentation and engines: t20 (KickLang specs), t324 (Unified MetaForge/OCS docs), t484 (OCS/Node Engine), t450 (Meta-Infrastructure workspace), parallel_f-kicklang-wrapper.
 
@@ -255,6 +286,7 @@ Public surface has lagged private/skill development; this update restores alignm
 
 *Substrate initialized: 2026-05-19*  
 *Core: OCS v2.1 + KickLang Space Generation Template*  
-*Status refresh: 2026-10-15*
+*Normative runtime: canon 2.2.0-draft (2026-10-20)*  
+*Status refresh: 2026-10-20*
 
 **Sigil note:** Canonical section marker is `⫻` (U+2AFB). Previous drafts used multiplication sign (×); normalized here for consistent rendering across editors and parsers.
