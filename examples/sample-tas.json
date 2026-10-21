@@ -1,0 +1,26 @@
+[
+  {
+    "id": "6f1c2b9e-0d8a-4e7b-9a51-3c2d1e0f4a01",
+    "name": "Define Success Criteria",
+    "description": "Establish clear, measurable indicators of completion that transcend domains and guide later review.",
+    "category": "Planning",
+    "purpose": "Ensures alignment on what success means before execution.",
+    "keywords": [
+      "criteria",
+      "metrics"
+    ],
+    "typical_inputs": [
+      "objective"
+    ],
+    "typical_outputs": [
+      "success criteria"
+    ]
+  },
+  {
+    "id": "6f1c2b9e-0d8a-4e7b-9a51-3c2d1e0f4a02",
+    "name": "Map Dependencies",
+    "description": "Identify which steps, resources and information depend on each other and record the ordering constraints.",
+    "category": "Analysis",
+    "purpose": "Makes ordering and parallelism explicit."
+  }
+]

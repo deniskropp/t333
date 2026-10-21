@@ -1,0 +1,63 @@
+# t333 canon — Task-Agnostic Steps (TAS)
+# canon-version: 2.2.0-draft
+# status: NORMATIV (implementierungsneutral)
+# Herkunft (informativ): deniskropp/t20
+#   - docs/kl-task-agnostic-steps.md                  (TAS-Playbook: Extract → Structure → … → Purify)
+#   - src/t20/assets/prompts/gptase_instructions.txt  (TAS-Datenschema: id, name, description, category, purpose, …)
+#   - src/t20/assets/prompts/putase_instructions.txt  (Purify-Methodik)
+#   - src/t20/kicklang/OCS.klang                      (Phase3 EXTRACT_TAS → Phase4 PURIFY)
+# Referenzimplementierung: Python (t20). Optionales Binding: t484 (C++/QML, OCS/Node Engine).
+# Persona-Bindings (GPTASe, TASe, uTASe, puTASe) sind NICHT kanonisch → examples/profiles/ocs-classic.yaml
+
+concept TAS {
+  description: "A Task-Agnostic Step: an abstract, reusable, domain-independent action (verb-noun) that stays valid across domains."
+  schema_ref: "schemas/tas.schema.json"
+  properties: {
+    id: "string",                         # UUID or content hash; unique within a TAS set
+    name: "string",                       # concise verb-noun phrase, e.g. "Define Success Criteria"
+    description: "string",                # >= 30 chars
+    category: "TASCategory",
+    purpose: "string",                    # <= 2 sentences
+    keywords: "optional<list<string>>",
+    applicability_notes: "optional<string>",
+    examples_of_usage: "optional<list<string>>",
+    typical_inputs: "optional<list<string>>",
+    typical_outputs: "optional<list<string>>"
+  }
+  invariant: "no domain-specific references (tools, languages, products) unless abstracted"
+}
+
+concept TASCategory {
+  description: "Closed set of TAS categories."
+  enum: [Init, Analysis, Planning, Execution, Refactoring, Review]
+}
+
+# ---------- Lebenszyklus: obj → tas → ptas → Plan ----------
+# Entspricht den Protokoll-Payloads ⫻data/obj → ⫻data/tas → ⫻data/ptas → ⫻data/spec
+
+concept ExtractTAS {
+  description: "Decomposes a high-level goal into raw TAS. May be run by several extractors in parallel; results are consolidated."
+  input: {
+    high_level_goal: "string",
+    inputs: "list<Artifact>"
+  }
+  output: "Result<list<TAS>, Error>"     # empty list is a valid result ("no TAS found")
+}
+
+concept PurifyTAS {
+  description: "Purifies raw TAS: removes duplicates, clarifies ambiguity, abstracts domain terms, orders them into a coherent flow (ptas)."
+  input: {
+    raw: "list<TAS>"
+  }
+  output: "Result<list<TAS>, Error>"     # error.code = "invalid_tas" on schema violation
+  invariant: "output ids are unique; every output TAS satisfies schemas/tas.schema.json"
+}
+
+concept PlanFromTAS {
+  description: "Turns purified TAS into an executable Plan (roles + task DAG). Bridge between canon/tas.kl and canon/runtime.kl (cf. GeneratePlan)."
+  input: {
+    high_level_goal: "string",
+    ptas: "list<TAS>"
+  }
+  output: "Result<Plan, Error>"
+}

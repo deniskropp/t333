@@ -49,3 +49,6 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
 - `task.schema.json`: `name` ist dokumentiert und optional.
 - `validate.py` prüft optional `task.name` gegen eine Session (`--session`). Im Standardlauf wird `examples/sample-session.json` verwendet.
 - **Neue Beispiele:** `examples/sample-session.json`, `examples/sample-plan-unassigned.json`. **Neues Negativ-Fixture:** `examples/invalid/unknown-agent.json`.
+- **TAS-Konzept:** Neu sind `canon/tas.kl` (`TAS`, `TASCategory`, `ExtractTAS`, `PurifyTAS`, `PlanFromTAS`) und `canon/schemas/tas.schema.json`.
+  - Abgeleitet aus deniskropp/t20: `src/t20/assets/prompts/gptase_instructions.txt` und `docs/kl-task-agnostic-steps.md`.
+  - Beispiel: `examples/sample-tas.json`. Negativ-Fixture: `examples/invalid/tas-bad-category-and-duplicate.json`.
