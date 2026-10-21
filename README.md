@@ -9,8 +9,8 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 - **High-fidelity execution** from high-level intent through structured TAS (Task-Agnostic Steps), purification, and orchestration.
 - **Traceability, coherence, and resilience** as first-class concerns.
 
-> **Status**: Foundational Substrate (OCS v2.1 / evolving toward v3.0 protocol interfaces)  
-> **Normative Runtime**: canon 2.2.0-draft (`canon/runtime.kl` + JSON Schema 2020-12)  
+> **Version**: canon 2.2.0 (`canon/VERSION` = `2.2.0-draft`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
+> **Normative layer**: `canon/` only (see `canon/SPEC.md`); everything else is informative or an example  
 > **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
 
@@ -25,7 +25,7 @@ Key principles:
 - **Hybrid Intelligence**: Blends creative exploration (`Creative`/`Hybrid` modes) with strict ethical/protocol compliance (`Strict`/`Audit`).
 - **Swarm Coordination**: Autonomous agents operate in parallel threads, synchronized via events, reconverge points, and learning loops.
 - **Substrate Mindset**: Like a blockchain or OS kernel, this provides the persistent base primitives (commands, data payloads, logic gates, team matrix) that higher-level Spaces and agents inherit and extend.
-- **Ethical & Resilient Core**: Dima + SystemMonitor + Halin ensure integrity; self-healing on minor failures.
+- **Ethical & Resilient Core**: the `ethics-gate`, `integrity-monitor` and `conflict-resolution` roles ensure integrity; self-healing on minor failures.
 
 This substrate enables **Space Generation** — the rapid bootstrapping of new operational contexts (e.g., innovation labs, ethics simulators, design workspaces) with consistent protocols.
 
@@ -79,7 +79,7 @@ See `docs/ocs-space-gen.kl.md` for the complete template and Space generation in
 
 ---
 
-## OCS Protocol (v2.1)
+## OCS Protocol (canon 2.2.0)
 
 ### 1. Directives (Enhanced Control Layer)
 - `⫻cmd/exec:<agent|team|flow>` — Delegate with flags (`async`, `sync`, `strict`, `collab`)
@@ -100,40 +100,44 @@ Core containers maintained in every Space:
 
 ### 3. Logic Primitives
 - `⫻logic/if`, `⫻logic/switch`, `⫻logic/loop`, `⫻logic/reconverge`, `⫻logic/learn` (reflective)
-- Monitoring layer: `⫻logic/error` (ethics → Dima, bias → SystemMonitor, conflict → Halin) and `⫻logic/validate` (integrity checkpoints)
+- Monitoring layer: `⫻logic/error` (ethics → `ethics-gate`, bias → `integrity-monitor`, conflict → `conflict-resolution`) and `⫻logic/validate` (integrity checkpoints)
 
 ### 4. Team Roles (Adaptive Agents)
 
-| Role              | Responsibility                              | Notes |
-|-------------------|---------------------------------------------|-------|
-| GPTASe            | TAS extractor                               | Initial task decomposition |
-| puTASe            | TAS purifier                                | Cleans & validates steps |
-| Lyra              | Prompt Engineer / Workflow Structurer       | Specs & refinement |
-| Fizz La Metta     | Coordinator / System Monitor                | Cognitive coordination |
-| AI Tutor          | Knowledge transfer                          | - |
-| Codein            | Code Investigator                           | - |
-| Dima              | Ethical Compliance / Joint Decisions        | Halt on ethics |
-| AR-00L            | Visual Assets                               | - |
-| QllickBuzz / QllickFizz | Operational Rules                      | Mode & rule enforcement |
-| WePlan            | Strategic / Tailored Plans                  | - |
-| Kick La Metta     | NL to Formal Translation                    | - |
-| Orchestrator      | Dynamic Role Adaptation / Holistic / Swarm  | Central flow control |
-| SystemMonitor     | Integrity Monitoring                        | Validation checkpoints |
-| **Synapse**       | Inter-agent memory & semantic consistency   | NewOCS addition |
-| **Chronos**       | Temporal dependencies & scheduling          | NewOCS addition |
-| **Halin**         | Conflict resolution (creative vs ethical)   | NewOCS addition |
+Normative are the **role IDs** in `canon/roles.yaml`. The persona names below are the non-canonical default profile `examples/profiles/ocs-classic.yaml`; derived systems may bind other personas.
+
+| Canon role ID         | Default persona (ocs-classic) | Responsibility                              | Notes |
+|-----------------------|-------------------------------|---------------------------------------------|-------|
+| `tas-extraction`      | GPTASe (+ TASe, uTASe)        | TAS extractor                               | Initial task decomposition |
+| `tas-purification`    | puTASe                        | TAS purifier                                | Cleans & validates steps |
+| `workflow-structuring`| Lyra                          | Prompt Engineer / Workflow Structurer       | Specs & refinement |
+| `coordination`        | Fizz La Metta                 | Coordinator / System Monitor                | Cognitive coordination, fallback owner |
+| `knowledge-transfer`  | AI Tutor                      | Knowledge transfer                          | - |
+| `code-investigation`  | Codein                        | Code Investigator                           | - |
+| `code-execution`      | **Kodax**                     | Code execution / implementation layer       | added (used in docs & examples) |
+| `system-design`       | **Aurora**                    | System & interaction design                 | added (used in docs & examples) |
+| `ethics-gate`         | Dima                          | Ethical Compliance / Joint Decisions        | Halt on ethics |
+| `visual-assets`       | AR-00L                        | Visual Assets                               | - |
+| `operational-rules`   | QllickBuzz / QllickFizz       | Operational Rules                           | Mode & rule enforcement |
+| `strategic-planning`  | WePlan                        | Strategic / Tailored Plans                  | - |
+| `nl-formalization`    | Kick La Metta                 | NL to Formal Translation                    | - |
+| `orchestration`       | Orchestrator                  | Dynamic Role Adaptation / Holistic / Swarm  | Central flow control |
+| `integrity-monitor`   | SystemMonitor                 | Integrity Monitoring                        | Validation checkpoints |
+| `semantic-memory`     | Synapse                       | Inter-agent memory & semantic consistency   | - |
+| `temporal-scheduling` | Chronos                       | Temporal dependencies & scheduling          | - |
+| `conflict-resolution` | Halin                         | Conflict resolution (creative vs ethical)   | - |
 
 ### 5. Execution Flows (Swarm+)
 - Standard sequential TAS → ptas → spec → swarm
 - `⫻flow/smart-execution`
 - `⫻flow/swarm` with spawn/merge/rebalance, event-based sync, self-healing
 
-### 6. Meta Rules (NewOCS addition)
+### 6. Meta Rules
 - `⫻rule/self-adaptation` — agents adjust internal behavior via reflective logic
 - `⫻rule/transparency` — every execution command produces an auditable trace
-- `⫻rule/fallback` — control ownership ambiguities resolved through Fizz La Metta
+- `⫻rule/fallback` — control ownership ambiguities resolved through the `coordination` role
 
-### 7. KickLang Layers (NewOCS addition)
+### 7. KickLang Layers
 - **ISO-style specification** — role-bound, graph-native cognitive orchestration language (normative refs, conformance, syntax, semantics, governance, formal grammar)
 - **Cognitive Transform Layer (CTL)** — converts NL/symbolic intents into coherent graph operations
 - **Bridge Layer** — binds cognitive flow to agent execution via hierarchical feedback loops
@@ -177,7 +181,7 @@ See table above. Allocate according to Space needs (core + extensions).
 7. Ongoing monitoring via validate hooks
 
 ### 6. Monitoring & Termination
-- Validation checkpoints (`ethics` → Dima, `bias` → SystemMonitor)
+- Validation checkpoints (`ethics` → `ethics-gate`, `bias` → `integrity-monitor`)
 - `⫻cmd/halt:manual` on conclusion
 - Export `⫻data/trace` + archive `⫻data/insight`
 - Broadcast `SpaceClosed`
@@ -190,28 +194,45 @@ See full protocol and templates in `docs/`.
 
 ```
 t333/
-├── README.md                 # This file (substrate definition)
-├── CHANGES.md                 # Canon 2.2.0-draft delta
-├── .gitignore
-├── canon/
-│   ├── runtime.kl              # Normative runtime kernel (2.2.0-draft)
-│   └── schemas/                # JSON Schema 2020-12 (Plan, Task, Error, Session, …)
+├── README.md                  # Entry point (informative)
+├── CHANGELOG.md               # Canon change history
+├── CHANGES.md                 # Detailed delta to canon 2.2.0-draft
+├── canon/                     # NORMATIVE layer (neutral, no personas/projects/vendors)
+│   ├── SPEC.md                # Scope, rules, referencing (t333 main), extension namespaces
+│   ├── VERSION                # 2.2.0-draft
+│   ├── runtime.kl             # Runtime kernel
+│   ├── tas.kl                 # Task-Agnostic Steps
+│   ├── roles.yaml             # Abstract role IDs
+│   └── schemas/               # JSON Schema 2020-12
+├── molecules/                 # Kernel contract molecules
 ├── docs/
-│   └── ocs-space-gen.kl.md   # Master template + Space gen instructions
+│   ├── adr/                   # Architecture Decision Records
+│   ├── architecture/          # OCS Node architecture (informative)
+│   ├── ecosystem-status.md    # Ecosystem/lineage notes (non-normative)
+│   └── ocs-space-gen.kl.md    # Space generation template (informative)
 ├── templates/
-│   └── space-bootstrap.kl.md # Reusable bootstrap
-├── examples/
+│   └── space-bootstrap.kl.md
+├── examples/                  # NON-canonical: Spaces, profiles, bindings, fixtures
 │   ├── HelioDeck-space-init.md
-│   ├── sample-plan.json       # Valid Plan example
-│   └── runtime-python/        # Non-canonical bindings & config schema
-├── spaces/
 │   ├── AetherWeave-space-init.md
-│   └── ForgeWeave-space-init.md
+│   ├── ForgeWeave-space-init.md
+│   ├── profiles/ocs-classic.yaml   # persona bindings for canon roles
+│   ├── runtime-python/        # Python bindings & config schema
+│   ├── sample-*.json          # valid instances
+│   └── invalid/               # negative fixtures (must fail validation)
 ├── tools/
-│   └── validate.py            # Schema + sample validation reference
+│   ├── validate.py            # schema + semantic validation
+│   └── lint.py                # ⫻ notation + neutrality checks
+├── .github/workflows/canon.yml
 └── visualizations/
-    └── ocs-kg-explorer.html      # OCS knowledge-graph explorer
+    └── ocs-kg-explorer.html
 ```
+
+---
+
+## Referencing t333 from derived systems
+
+Derived systems (t20, t138, t141, t324, t450, t484, …) reference **t333 `main`** directly — there is no version-pinning manifest. `main` is kept valid by CI (`.github/workflows/canon.yml`). Breaking changes are announced in `CHANGELOG.md` and recorded as ADRs. Extensions live in their own namespace `⫻x-tNNN/…` (e.g. `⫻x-t484/display`) and never silently enter the core. Details: `canon/SPEC.md`.
 
 ---
 
@@ -238,10 +259,10 @@ The substrate will guide decomposition, agent assignment, and execution.
 
 The following example Spaces were generated directly from the `templates/space-bootstrap.kl.md` and master protocol:
 
-- **AetherWeave** (`spaces/AetherWeave-space-init.md`)  
+- **AetherWeave** (`examples/AetherWeave-space-init.md`)  
   Hybrid creative narrative & world-building lab with emotional resonance tracking, lore consistency, and ethical narrative guardrails. Ideal for stories, games, and lore-heavy projects.
 
-- **ForgeWeave** (`spaces/ForgeWeave-space-init.md`)  
+- **ForgeWeave** (`examples/ForgeWeave-space-init.md`)  
   Code + creative substrate evolution lab focused on modernization, refactoring, architectural innovation, and documentation. Perfect for extending tXXX systems and technical meta-tools.
 
 These demonstrate practical application of the substrate for both creative and technical domains.
@@ -263,30 +284,18 @@ This substrate is designed to be **forked, extended, and specialized** while pre
 
 ## License & Attribution
 
-Foundational patterns inspired by the tXXX series (deniskropp).  
+Foundational patterns inspired by the tXXX series.  
 KickLang / OCS protocols developed for meta-artificial intelligence Spaces.  
-Use responsibly under ethical oversight (Dima layer always active).
+Use responsibly under ethical oversight (the `ethics-gate` role is always active).
 
 **High-value artifacts produced here become the seeds for new specialized repositories and operational Spaces.**
 
 ---
 
-## Status Update — October 2026
+## Status
 
-The substrate remains the canonical public reference for OCS Space generation and KickLang sectioned protocols. Since initial release:
+Ecosystem status, lineage and roadmap notes (non-normative) live in [`docs/ecosystem-status.md`](docs/ecosystem-status.md).
 
-- Three-agent-core (KickForge / KickFlow / KickGuard) has become the dominant orchestration pattern across the ecosystem and is fully compatible with this substrate's team and flow model.
-- KickLang has advanced to v4.1+ with parser/emitter cores, Meta-Playbook patterns, and bidirectional bridges (see related repos).
-- Living skill ecosystem (ocs-skill-builder, kicklang-meta-playbook, tas-forecast-cycle, aetheris-video-pipeline, and others) consumes and extends these protocols.
-- **Normative runtime layer (canon 2.2.0-draft)** is now public: typed Result/Error, abstract ArtifactStore, schema-validated Plan/Task/Session.
-- Public journal (@DeniOliK) and model handoffs (Grok, Copilot, Google AI Mode) continue to treat the substrate as living reference.
-- Related public documentation and engines: t20 (KickLang specs), t324 (Unified MetaForge/OCS docs), t484 (OCS/Node Engine), t450 (Meta-Infrastructure workspace), parallel_f-kicklang-wrapper.
-
-Public surface has lagged private/skill development; this update restores alignment. Next increments: schema freeze notes, explicit v3.0 protocol mapping, and onboarding examples for external Spaces.
-
-*Substrate initialized: 2026-05-19*  
-*Core: OCS v2.1 + KickLang Space Generation Template*  
-*Normative runtime: canon 2.2.0-draft (2026-10-20)*  
-*Status refresh: 2026-10-20*
+*Substrate initialized: 2026-05-19 · canon 2.2.0 (2.2.0-draft, 2026-10-21)*
 
 **Sigil note:** Canonical section marker is `⫻` (U+2AFB). Previous drafts used multiplication sign (×); normalized here for consistent rendering across editors and parsers.

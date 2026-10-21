@@ -44,7 +44,7 @@ role: contract-registration
   molecule: "artifact-store"
   abstract: true
 
-⫻cmd/exec: SystemMonitor
+⫻cmd/exec: integrity-monitor   # canon role (canon/roles.yaml); default persona: examples/profiles/ocs-classic.yaml
   validate: molecule registration
 
 ⫻end/molecule

@@ -59,7 +59,7 @@ role: contract-registration
     - plan-task-dag
   status: "sealed"
 
-⫻cmd/exec: SystemMonitor
+⫻cmd/exec: integrity-monitor   # canon role (canon/roles.yaml); default persona: examples/profiles/ocs-classic.yaml
   validate: combined molecule registration
 
 ⫻end/molecule

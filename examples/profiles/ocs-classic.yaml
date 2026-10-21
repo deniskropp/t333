@@ -1,0 +1,25 @@
+# NICHT-KANONISCH — Default-Profil "OCS classic": Persona-Belegung der kanonischen Rollen
+# referenziert: canon/roles.yaml (canon 2.2.0-draft)
+# Abgeleitete Systeme dürfen eigene Profile definieren; der Kanon hängt von keinem Profil ab.
+profile: ocs-classic
+bindings:
+  tas-extraction:      [GPTASe, TASe, uTASe]   # t20: mehrere Extraktoren, konsolidiert
+  tas-purification:    [puTASe]
+  workflow-structuring: [Lyra]
+  coordination:        [Fizz La Metta]
+  orchestration:       [Orchestrator]
+  knowledge-transfer:  [AI Tutor]
+  code-investigation:  [Codein]
+  code-execution:      [Kodax]
+  system-design:       [Aurora]
+  visual-assets:       [AR-00L]
+  operational-rules:   [QllickBuzz, QllickFizz]
+  strategic-planning:  [WePlan]
+  nl-formalization:    [Kick La Metta]
+  ethics-gate:         [Dima]
+  integrity-monitor:   [SystemMonitor]
+  semantic-memory:     [Synapse]
+  temporal-scheduling: [Chronos]
+  conflict-resolution: [Halin]
+# Persona-Namen, die zugleich kanonische Konzeptnamen sind (vom Namens-Lint ausgenommen):
+canon_concept_names: [Orchestrator]

@@ -7,7 +7,7 @@
 #   - src/t20/assets/prompts/putase_instructions.txt  (Purify-Methodik)
 #   - src/t20/kicklang/OCS.klang                      (Phase3 EXTRACT_TAS → Phase4 PURIFY)
 # Referenzimplementierung: Python (t20). Optionales Binding: t484 (C++/QML, OCS/Node Engine).
-# Persona-Bindings (GPTASe, TASe, uTASe, puTASe) sind NICHT kanonisch → examples/profiles/ocs-classic.yaml
+# Rollen: tas-extraction, tas-purification (canon/roles.yaml). Persona-Bindings: examples/profiles/ocs-classic.yaml (nicht kanonisch)
 
 concept TAS {
   description: "A Task-Agnostic Step: an abstract, reusable, domain-independent action (verb-noun) that stays valid across domains."
