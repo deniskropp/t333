@@ -223,7 +223,7 @@ t333/
 ├── tools/
 │   ├── validate.py            # schema + semantic validation
 │   └── lint.py                # ⫻ notation + neutrality checks
-├── .github/workflows/canon.yml
+├── ci/canon.yml               # CI workflow (to be moved to .github/workflows/)
 └── visualizations/
     └── ocs-kg-explorer.html
 ```

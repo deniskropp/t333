@@ -52,3 +52,10 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
 - **TAS-Konzept:** Neu sind `canon/tas.kl` (`TAS`, `TASCategory`, `ExtractTAS`, `PurifyTAS`, `PlanFromTAS`) und `canon/schemas/tas.schema.json`.
   - Abgeleitet aus deniskropp/t20: `src/t20/assets/prompts/gptase_instructions.txt` und `docs/kl-task-agnostic-steps.md`.
   - Beispiel: `examples/sample-tas.json`. Negativ-Fixture: `examples/invalid/tas-bad-category-and-duplicate.json`.
+- **Aufräumen nach dem SSoT-Vorschlag:**
+  - ⫻-Notation vereinheitlicht und `spaces/` nach `examples/` verschoben.
+  - Neu: `canon/roles.yaml` und das Profil `examples/profiles/ocs-classic.yaml`.
+  - Einheitliche Versionslinie *canon 2.2.0*.
+  - Persona- und Projektbezüge aus normativen Texten entfernt.
+  - Neu: `canon/SPEC.md` und `CHANGELOG.md`, dazu ADRs unter `docs/adr/`.
+- **CI:** `ci/canon.yml` (Ziel: `.github/workflows/canon.yml`) führt `tools/validate.py` und `tools/lint.py` aus.

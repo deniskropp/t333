@@ -12,7 +12,7 @@ Alle relevanten Änderungen am Kanon (`canon/`). Format nach [Keep a Changelog](
 - `Orchestrator.AssignAgent` als Laufzeitprüfung, dass ein gesetztes `task.name` in `Session.agents` existiert (ADR-0004).
 - `tools/validate.py` prüft zusätzlich die Semantik von Plänen (eindeutige IDs, Referenzen, Rollen, Zyklen, Agenten) und TAS-Instanzen.
 - `tools/lint.py`: Prüfung der ⫻-Notation und der Neutralität.
-- CI-Workflow `.github/workflows/canon.yml`.
+- CI-Workflow `ci/canon.yml` (Ziel: `.github/workflows/canon.yml`, siehe PR).
 - Negativ-Fixtures in `examples/invalid/`.
 - ADRs 0001–0006 unter `docs/adr/`.
 
