@@ -4,7 +4,7 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
 
 ## Neue Typen
 - **Error, Result<T,E>, SchemaRef** neu eingeführt. Begründung: einheitliche Fehlerbehandlung statt Fehler-Strings und `null`.
-- **ArtifactStore** (mit PutArtifact/FetchArtifact) neu. Begründung: `Session` soll keine Ablage im Dateisystem voraussetzen.
+- **ArtifactStore** (mit AddArtifact/GetArtifact) neu. Begründung: `Session` soll keine Ablage im Dateisystem voraussetzen.
 - **LLM, ExecutionContext, Session** sind jetzt vollständig definiert. Im Input wurden sie nur angenommen („Assuming … elsewhere“).
 
 ## Geänderte Felder und Signaturen
@@ -29,4 +29,15 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
 ## Schemas
 - `canon/schemas/{role,task,plan,artifact,agent-output,error,session,execution-context}.schema.json` (Draft 2020-12).
 - `session` und `execution-context` decken nur den serialisierbaren Teil ab: Statt der Objekte stehen dort `session_id` bzw. `store_ref`.
-- Geprüft mit `tools/validate.py`. Gültige Beispiele: `examples/sample-plan.json`.
+- Geprüft mit `tools/validate.py`. Gültiges Beispiel: `examples/sample-plan.json`.
+
+## Revision 2 (freigegebene offene Punkte)
+- **Einheitliche Namen:** `PutArtifact` und `FetchArtifact` entfallen. Kanonisch sind nur noch `AddArtifact`/`GetArtifact`. Sie sind primär auf `ArtifactStore` definiert, und `Session` delegiert an `Session.store`. `FileArtifactStore` in den Bindings nutzt dieselben Namen.
+- **Beibehalten wie beschlossen:** `inputs: list<Artifact>` und die Session-Zustände `init`/`running`/`done`/`failed`.
+- **`tools/validate.py` prüft jetzt auch die Semantik von Plänen:**
+  - Eindeutigkeit der `task_id`s
+  - ob `requires` nur auf vorhandene Tasks verweist
+  - ob `task.role` einem Rollentitel in `plan.roles` entspricht
+  - ob `requires` zyklenfrei ist (ein gefundener Zyklus wird ausgegeben)
+- `validate.py` läuft aus jedem Verzeichnis. Ohne Argumente prüft es das gültige Beispiel und alle Negativfälle, mit Argumenten die angegebenen Plan-Dateien.
+- **Negativ-Fixtures** in `examples/invalid/`: `duplicate-id`, `dangling-ref`, `cycle`, `unknown-role`.

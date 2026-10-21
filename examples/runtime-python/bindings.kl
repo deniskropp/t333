@@ -49,6 +49,7 @@ concept FileArtifactStore {
   description: "ArtifactStore backed by a session directory (former Session.session_dir)."
   implements: "ArtifactStore"
   properties: { session_dir: "string" }
+  functions: [AddArtifact, GetArtifact]   # canon names; one file per artifact name
 }
 
 concept LoadConfig {

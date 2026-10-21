@@ -89,18 +89,10 @@ concept AgentOutput {
 
 concept ArtifactStore {
   description: "Abstract key/value store for artifacts. No assumption about filesystem, database or memory."
-  functions: [PutArtifact, FetchArtifact]
+  functions: [AddArtifact, GetArtifact]
 }
 
-concept PutArtifact {
-  input: { name: "string", content: "any" }
-  output: "Result<void, Error>"
-}
-
-concept FetchArtifact {
-  input: { name: "string" }
-  output: "Result<Artifact, Error>"   # error.code = "not_found" if missing
-}
+# AddArtifact / GetArtifact: see definitions below (shared by ArtifactStore and Session).
 
 # ---------- LLM (abstrakt) ----------
 
@@ -184,13 +176,13 @@ concept Session {
 }
 
 concept AddArtifact {
-  description: "Stores an artifact in the session's ArtifactStore."
+  description: "Stores (or overwrites) an artifact by name. On ArtifactStore: primary operation; on Session: delegates to Session.store."
   input: { name: "string", content: "any" }
   output: "Result<void, Error>"
 }
 
 concept GetArtifact {
-  description: "Loads an artifact from the session's ArtifactStore."
+  description: "Loads an artifact by name. On ArtifactStore: primary operation; on Session: delegates to Session.store. error.code = \"not_found\" if missing."
   input: { name: "string" }
   output: "Result<Artifact, Error>"
 }

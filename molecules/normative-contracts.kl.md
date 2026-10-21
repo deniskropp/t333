@@ -21,7 +21,7 @@ role: contract-registration
 
 # ----- Result -----
 ⫻logic/register result:
-  fallible_ops: [GeneratePlan, ExecuteTask, CurrentStep, PutArtifact, FetchArtifact, GenerateContent]
+  fallible_ops: [GeneratePlan, ExecuteTask, CurrentStep, AddArtifact, GetArtifact, GenerateContent]
   return_type: Result<T, Error>
   invariant: "exactly one of value or error"
 
@@ -29,8 +29,8 @@ role: contract-registration
 ⫻logic/register artifact-store:
   interface: ArtifactStore
   operations:
-    PutArtifact → Result<void, Error>
-    FetchArtifact → Result<Artifact, Error>
+    AddArtifact → Result<void, Error>
+    GetArtifact → Result<Artifact, Error>
   invariant: "storage-agnostic; no filesystem assumption"
   error_codes: [not_found]
 

@@ -16,7 +16,7 @@ Rapid bootstrapping of modular, swarm-coordinated operational environments on to
 - **ForgeWeave** — Code and substrate evolution
 
 ## Canon Integration
-Space initialization now routes artifact I/O through `ArtifactStore` and treats fallible steps as `Result&lt;…, Error&gt;`.
+Space initialization now routes artifact I/O through `ArtifactStore` and treats fallible steps as `Result<…, Error>`.
 
 ## Templates
 - `templates/space-bootstrap.kl.md`

@@ -1,21 +1,21 @@
 # Knowledge Space: Runtime Contracts
 
 ## Result Discipline
-All fallible operations return `Result&lt;T, Error&gt;`.
+All fallible operations return `Result<T, Error>`.
 - `ok: true` → `value` is set
 - `ok: false` → `error` is set
 - Error codes include `llm_unavailable`, `invalid_plan`, `task_failed`, `not_found`
 
 ## ArtifactStore Contract
 ```
-PutArtifact(name, content) → Result&lt;void, Error&gt;
-FetchArtifact(name) → Result&lt;Artifact, Error&gt;  // not_found if missing
+AddArtifact(name, content) → Result<void, Error>
+GetArtifact(name) → Result<Artifact, Error>  // not_found if missing
 ```
 Session holds a reference (`store` / `store_ref`). No directory assumption in canon.
 
 ## Plan Contract
-- `roles: list&lt;Role&gt;`
-- `tasks: list&lt;Task&gt;` with `requires` forming a DAG
+- `roles: list<Role>`
+- `tasks: list<Task>` with `requires` forming a DAG
 - Validated against `plan.schema.json`
 
 ## Non-Canonical Boundary

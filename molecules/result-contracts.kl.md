@@ -20,8 +20,8 @@ role: contract-registration
       - GeneratePlan
       - ExecuteTask
       - CurrentStep
-      - PutArtifact
-      - FetchArtifact
+      - AddArtifact
+      - GetArtifact
       - GenerateContent
     return_type: "Result<T, Error>"
     invariant: "exactly one of value or error"
