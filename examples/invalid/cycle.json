@@ -1,0 +1,39 @@
+{
+  "reasoning": "invalid fixture: cycle",
+  "roles": [
+    {
+      "title": "Planner",
+      "description": "p"
+    },
+    {
+      "title": "Engineer",
+      "description": "e"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "T1",
+      "task": "do T1",
+      "role": "Planner",
+      "requires": [
+        "T3"
+      ]
+    },
+    {
+      "task_id": "T2",
+      "task": "do T2",
+      "role": "Engineer",
+      "requires": [
+        "T1"
+      ]
+    },
+    {
+      "task_id": "T3",
+      "task": "do T3",
+      "role": "Engineer",
+      "requires": [
+        "T2"
+      ]
+    }
+  ]
+}

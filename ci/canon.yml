@@ -1,0 +1,27 @@
+# Zielort: .github/workflows/canon.yml
+# Liegt hier, weil das verwendete GitHub-Token keinen `workflow`-Scope hat.
+# Aktivieren: git mv ci/canon.yml .github/workflows/canon.yml (mit workflow-berechtigtem Zugang pushen)
+
+name: canon
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install "jsonschema>=4.18" pyyaml
+      - name: Validate schemas, examples and negative fixtures
+        run: python tools/validate.py
+      - name: Lint (⫻ notation, neutrality, roles/profile)
+        run: python tools/lint.py

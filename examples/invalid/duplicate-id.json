@@ -1,0 +1,27 @@
+{
+  "reasoning": "invalid fixture: duplicate-id",
+  "roles": [
+    {
+      "title": "Planner",
+      "description": "p"
+    },
+    {
+      "title": "Engineer",
+      "description": "e"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "T1",
+      "task": "do T1",
+      "role": "Planner",
+      "requires": []
+    },
+    {
+      "task_id": "T1",
+      "task": "do T1",
+      "role": "Engineer",
+      "requires": []
+    }
+  ]
+}

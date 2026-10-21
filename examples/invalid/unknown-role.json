@@ -1,0 +1,29 @@
+{
+  "reasoning": "invalid fixture: unknown-role",
+  "roles": [
+    {
+      "title": "Planner",
+      "description": "p"
+    },
+    {
+      "title": "Engineer",
+      "description": "e"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "T1",
+      "task": "do T1",
+      "role": "Planner",
+      "requires": []
+    },
+    {
+      "task_id": "T2",
+      "task": "do T2",
+      "role": "Designer",
+      "requires": [
+        "T1"
+      ]
+    }
+  ]
+}

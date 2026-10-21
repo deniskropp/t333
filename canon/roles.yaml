@@ -1,0 +1,49 @@
+# t333 canon — abstrakte Rollen (Funktionen)
+# canon-version: 2.2.0-draft
+# status: NORMATIV. Enthält bewusst KEINE Persona-, Projekt- oder Anbieternamen.
+# Persona-Belegungen (Default-Profil): examples/profiles/ocs-classic.yaml
+roles:
+  - id: tas-extraction
+    function: "Decompose a high-level goal into raw Task-Agnostic Steps (canon/tas.kl ExtractTAS)"
+    produces: [data/tas]
+  - id: tas-purification
+    function: "Deduplicate, abstract and order raw TAS into purified TAS (PurifyTAS)"
+    produces: [data/ptas]
+  - id: workflow-structuring
+    function: "Turn purified TAS into an execution spec / Plan; refine prompts"
+    produces: [data/spec]
+  - id: coordination
+    function: "Cognitive coordination of the collective; fallback owner when control ownership is ambiguous (rule/fallback)"
+  - id: orchestration
+    function: "Dynamic role adaptation and swarm flow control (canon/runtime.kl Orchestrator)"
+  - id: knowledge-transfer
+    function: "Explain and transfer knowledge between agents and to the user"
+  - id: code-investigation
+    function: "Analyse existing code and technical context"
+  - id: code-execution
+    function: "Implement and execute code artifacts"
+  - id: system-design
+    function: "System and interaction design"
+  - id: visual-assets
+    function: "Produce visual artifacts"
+  - id: operational-rules
+    function: "Enforce modes and operational rules"
+  - id: strategic-planning
+    function: "Strategic and tailored planning"
+  - id: nl-formalization
+    function: "Translate natural language into formal KickLang"
+  - id: ethics-gate
+    function: "Ethical compliance; may halt execution (cmd/halt:ethics)"
+    triggers: [logic/error:ethics, logic/validate:ethics]
+  - id: integrity-monitor
+    function: "Integrity and bias monitoring at validation checkpoints"
+    triggers: [logic/error:bias, logic/validate:integrity]
+  - id: semantic-memory
+    function: "Inter-agent memory and semantic consistency"
+    triggers: [logic/validate:semantic]
+  - id: temporal-scheduling
+    function: "Temporal dependencies and scheduling"
+    triggers: [logic/validate:temporal]
+  - id: conflict-resolution
+    function: "Resolve conflicts between creative and ethical branches"
+    triggers: [logic/error:conflict]

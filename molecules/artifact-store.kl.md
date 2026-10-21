@@ -15,27 +15,27 @@ role: contract-registration
   kernel_concepts:
     - ArtifactStore
     - Artifact
-    - PutArtifact
-    - FetchArtifact
+    - AddArtifact
+    - GetArtifact
   registration:
     interface: ArtifactStore
     operations:
-      - PutArtifact → Result<void, Error>
-      - FetchArtifact → Result<Artifact, Error>
+      - AddArtifact → Result<void, Error>
+      - GetArtifact → Result<Artifact, Error>
     invariant: "no filesystem or directory assumption"
     error_codes:
       - not_found
 
 ⫻logic/register:
   kernel.bind(ArtifactStore, abstract: true)
-  kernel.bind(PutArtifact, return_type: Result<void, Error>)
-  kernel.bind(FetchArtifact, return_type: Result<Artifact, Error>)
+  kernel.bind(AddArtifact, return_type: Result<void, Error>)
+  kernel.bind(GetArtifact, return_type: Result<Artifact, Error>)
   kernel.enforce(invariant: "storage-agnostic")
 
 ⫻logic/validate:
   if operation implies filesystem path:
     raise kernel.Error(code: "contract_violation", message: "filesystem assumption forbidden in canon")
-  if FetchArtifact misses and error.code != "not_found":
+  if GetArtifact misses and error.code != "not_found":
     raise kernel.Error(code: "contract_violation")
 
 ⫻data/state:
@@ -44,7 +44,7 @@ role: contract-registration
   molecule: "artifact-store"
   abstract: true
 
-⫻cmd/exec: SystemMonitor
+⫻cmd/exec: integrity-monitor   # canon role (canon/roles.yaml); default persona: examples/profiles/ocs-classic.yaml
   validate: molecule registration
 
 ⫻end/molecule

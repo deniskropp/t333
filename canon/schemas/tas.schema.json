@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/tas.schema.json",
+  "title": "TAS (Task-Agnostic Step)",
+  "description": "Neutral TAS schema. Source: deniskropp/t20 src/t20/assets/prompts/gptase_instructions.txt",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UUID or content hash"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concise verb-noun phrase"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 30
+    },
+    "category": {
+      "enum": [
+        "Init",
+        "Analysis",
+        "Planning",
+        "Execution",
+        "Refactoring",
+        "Review"
+      ]
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "applicability_notes": {
+      "type": "string"
+    },
+    "examples_of_usage": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "typical_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "typical_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "category",
+    "purpose"
+  ],
+  "additionalProperties": false
+}

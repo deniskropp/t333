@@ -3,7 +3,7 @@
 ## Purpose
 Rapid bootstrapping of modular, swarm-coordinated operational environments on top of the normative substrate.
 
-## Initialization Flow (OCS v2.1)
+## Initialization Flow (canon 2.2.0)
 1. Define purpose (Type, Scope, Output Focus)
 2. Set mode and language
 3. Extract TAS → purify to PTAS → generate spec
@@ -16,7 +16,7 @@ Rapid bootstrapping of modular, swarm-coordinated operational environments on to
 - **ForgeWeave** — Code and substrate evolution
 
 ## Canon Integration
-Space initialization now routes artifact I/O through `ArtifactStore` and treats fallible steps as `Result&lt;…, Error&gt;`.
+Space initialization now routes artifact I/O through `ArtifactStore` and treats fallible steps as `Result<…, Error>`.
 
 ## Templates
 - `templates/space-bootstrap.kl.md`

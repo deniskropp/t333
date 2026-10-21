@@ -49,6 +49,7 @@ concept FileArtifactStore {
   description: "ArtifactStore backed by a session directory (former Session.session_dir)."
   implements: "ArtifactStore"
   properties: { session_dir: "string" }
+  functions: [AddArtifact, GetArtifact]   # canon names; one file per artifact name
 }
 
 concept LoadConfig {
@@ -64,4 +65,13 @@ concept LoadAgentTemplates {
 concept LoadPrompts {
   input: { prompts_dir: "string" }
   output: "Result<map<string, string>, Error>"
+}
+
+# ---------- TAS (canon/tas.kl) ----------
+# Referenz: deniskropp/t20 (Python). ExtractTAS wird dort von mehreren Extraktoren
+# parallel ausgeführt (src/t20/kicklang/OCS.klang, Phase3), PurifyTAS von puTASe (Phase4).
+# Persona-Zuordnung: examples/profiles/ocs-classic.yaml. Optionales Binding: t484 (C++/QML).
+concept PythonTASExtractor {
+  implements: "ExtractTAS"
+  properties: { prompt_ref: "string", llm: "LLM" }   # z.B. gptase_instructions.txt
 }

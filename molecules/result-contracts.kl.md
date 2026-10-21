@@ -20,8 +20,8 @@ role: contract-registration
       - GeneratePlan
       - ExecuteTask
       - CurrentStep
-      - PutArtifact
-      - FetchArtifact
+      - AddArtifact
+      - GetArtifact
       - GenerateContent
     return_type: "Result<T, Error>"
     invariant: "exactly one of value or error"
@@ -42,7 +42,7 @@ role: contract-registration
   kernel_version: "2.2.0-draft"
   molecule: "result-contracts"
 
-⫻cmd/exec: SystemMonitor
+⫻cmd/exec: integrity-monitor   # canon role (canon/roles.yaml); default persona: examples/profiles/ocs-classic.yaml
   validate: molecule registration
 
 ⫻end/molecule

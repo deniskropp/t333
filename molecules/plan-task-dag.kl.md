@@ -45,7 +45,7 @@ role: contract-registration
   molecule: "plan-task-dag"
   dag_enforced: true
 
-⫻cmd/exec: SystemMonitor
+⫻cmd/exec: integrity-monitor   # canon role (canon/roles.yaml); default persona: examples/profiles/ocs-classic.yaml
   validate: molecule registration
 
 ⫻end/molecule
