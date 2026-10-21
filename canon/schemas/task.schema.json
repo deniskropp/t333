@@ -17,7 +17,9 @@
       "minLength": 1
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional Agent.name. If omitted, the agent is assigned at runtime (AssignAgent). If set, it must exist in Session.agents."
     },
     "requires": {
       "type": "array",

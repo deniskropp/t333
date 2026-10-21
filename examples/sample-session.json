@@ -1,0 +1,9 @@
+{
+  "session_id": "sample-session-1",
+  "state": "init",
+  "agents": [
+    {"name": "planner-1", "role": "Planner", "model_id": "example-model"},
+    {"name": "engineer-1", "role": "Engineer", "model_id": "example-model"}
+  ],
+  "store_ref": "store://sample-session-1"
+}

@@ -51,7 +51,7 @@ concept Task {
     task_id: "string",
     task: "string",
     role: "string",              # references Role.title
-    name: "string",              # references Agent.name
+    name: "optional<string>",    # Agent.name; may be omitted — assignment happens at runtime (see AssignAgent)
     requires: "list<string>"     # list of task_ids (must form a DAG)
   }
 }
@@ -223,7 +223,7 @@ concept RecordArtifact {
 concept Orchestrator {
   description: "Agent that creates and manages a plan for multi-agent workflows."
   extends: "Agent"
-  functions: [StartWorkflow, CheckNewPrompts, CheckNewPrompt, GeneratePlan]
+  functions: [StartWorkflow, CheckNewPrompts, CheckNewPrompt, GeneratePlan, AssignAgent]
 }
 
 concept StartWorkflow {
@@ -260,4 +260,14 @@ concept GeneratePlan {
     inputs: "list<Artifact>"        # was: file_contents map
   }
   output: "Result<Plan, Error>"
+}
+
+concept AssignAgent {
+  description: "Resolves the executing agent for a task at runtime. If task.name is set it MUST name an agent in Session.agents; otherwise an agent is selected via FindAgentByRole(session.agents, task.role)."
+  input: {
+    session: "Session",
+    task: "Task"
+  }
+  output: "Result<Agent, Error>"   # error.code = "unknown_agent" (name not in Session.agents) | "no_agent_for_role"
+  invariant: "returned Agent is an element of session.agents"
 }

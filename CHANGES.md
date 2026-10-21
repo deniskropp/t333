@@ -41,3 +41,11 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
   - ob `requires` zyklenfrei ist (ein gefundener Zyklus wird ausgegeben)
 - `validate.py` läuft aus jedem Verzeichnis. Ohne Argumente prüft es das gültige Beispiel und alle Negativfälle, mit Argumenten die angegebenen Plan-Dateien.
 - **Negativ-Fixtures** in `examples/invalid/`: `duplicate-id`, `dangling-ref`, `cycle`, `unknown-role`.
+
+## Revision 3 (canon/2.2.0)
+- **`Task.name` ist optional:** Die Agentenzuweisung erfolgt zur Laufzeit.
+  - Neues Konzept `AssignAgent(session, task) → Result<Agent, Error>` am `Orchestrator`.
+  - Ist `name` gesetzt, muss es in `Session.agents` existieren (`unknown_agent`). Sonst wird über `FindAgentByRole` zugewiesen (`no_agent_for_role`).
+- `task.schema.json`: `name` ist dokumentiert und optional.
+- `validate.py` prüft optional `task.name` gegen eine Session (`--session`). Im Standardlauf wird `examples/sample-session.json` verwendet.
+- **Neue Beispiele:** `examples/sample-session.json`, `examples/sample-plan-unassigned.json`. **Neues Negativ-Fixture:** `examples/invalid/unknown-agent.json`.

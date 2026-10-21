@@ -1,0 +1,11 @@
+{
+  "reasoning": "Task.name ist optional: Agenten werden zur Laufzeit per AssignAgent (Rolle -> Agent) zugewiesen.",
+  "roles": [
+    {"title": "Planner", "description": "Zerlegt das Ziel in Tasks"},
+    {"title": "Engineer", "description": "Setzt Tasks um"}
+  ],
+  "tasks": [
+    {"task_id": "T1", "task": "Anforderungen sammeln", "role": "Planner", "requires": []},
+    {"task_id": "T2", "task": "Prototyp bauen", "role": "Engineer", "requires": ["T1"]}
+  ]
+}
