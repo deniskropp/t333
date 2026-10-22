@@ -58,4 +58,4 @@ Aufteilung: `canon/runtime.kl` ist normativ und neutral. `examples/runtime-pytho
   - Einheitliche Versionslinie *canon 2.2.0*.
   - Persona- und Projektbezüge aus normativen Texten entfernt.
   - Neu: `canon/SPEC.md` und `CHANGELOG.md`, dazu ADRs unter `docs/adr/`.
-- **CI:** `ci/canon.yml` (Ziel: `.github/workflows/canon.yml`) führt `tools/validate.py` und `tools/lint.py` aus.
+- **CI:** `.github/workflows/canon.yml` (zuerst als `ci/canon.yml` eingereicht) führt `tools/validate.py` und `tools/lint.py` aus.

@@ -1,4 +1,4 @@
-# t333 Canon — SPEC (canon 2.2.0-draft)
+# t333 Canon — SPEC (canon 2.2.0)
 
 Dieses Verzeichnis (`canon/`) ist die **neutrale Source of Truth** für alle abgeleiteten tXXX-Systeme, Spaces und Agenten. Alles außerhalb von `canon/` ist informativ (`docs/`, `README.md`) oder ein Beispiel (`examples/`, `templates/`).
 

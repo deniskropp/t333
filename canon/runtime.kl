@@ -1,5 +1,5 @@
 # t333 canon — Runtime-Kernkonzepte
-# canon-version: 2.2.0-draft
+# canon-version: 2.2.0
 # status: NORMATIV (implementierungsneutral). Bindings siehe examples/.
 # Datenkonzepte haben ein JSON Schema unter canon/schemas/<name>.schema.json
 

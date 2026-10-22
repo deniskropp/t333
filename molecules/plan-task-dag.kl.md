@@ -1,7 +1,7 @@
 ⫻kicklang:molecule
 # kernel/molecule/plan-task-dag
 # target: canon/runtime.kl
-# version: 2.2.0-draft
+# version: 2.2.0
 # status: normative-registration
 
 ⫻context/klmx:Kick/Lang
@@ -41,7 +41,7 @@ role: contract-registration
 
 ⫻data/state:
   registered: true
-  kernel_version: "2.2.0-draft"
+  kernel_version: "2.2.0"
   molecule: "plan-task-dag"
   dag_enforced: true
 

@@ -1,7 +1,7 @@
 ⫻kicklang:molecule
 # kernel/molecule/normative-contracts
 # target: canon/runtime.kl
-# version: 2.2.0-draft
+# version: 2.2.0
 # status: normative-registration
 # contains: result-contracts + artifact-store + plan-task-dag
 
@@ -13,7 +13,7 @@ role: contract-registration
 
 ⫻data/spec:
   molecule_id: "normative-contracts"
-  version: "2.2.0-draft"
+  version: "2.2.0"
   contracts:
     - result-contracts
     - artifact-store
@@ -52,7 +52,7 @@ role: contract-registration
 
 ⫻data/state:
   registered: true
-  kernel_version: "2.2.0-draft"
+  kernel_version: "2.2.0"
   molecules:
     - result-contracts
     - artifact-store
