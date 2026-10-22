@@ -2,7 +2,9 @@
 
 Alle relevanten Änderungen am Kanon (`canon/`). Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/); Versionen nach SemVer (`canon/VERSION`). Abgeleitete Systeme referenzieren `main` (siehe ADR-0005). Details pro Änderung: `CHANGES.md`.
 
-## [2.2.0-draft] — unreleased
+## [2.2.0] — 2026-10-22
+
+Release von canon 2.2.0. Enthält alle Änderungen gegenüber 2.2.0-draft (PR #2). `canon/VERSION` = `2.2.0`, Tag `canon-v2.2.0` (wird nach dem Merge auf den Merge-Commit gesetzt).
 
 ### Hinzugefügt
 - `canon/SPEC.md`: Geltungsbereich, Notation, Neutralitätsregeln, Referenzierung über `main`, Namensraum `⫻x-tNNN/`.
@@ -12,7 +14,7 @@ Alle relevanten Änderungen am Kanon (`canon/`). Format nach [Keep a Changelog](
 - `Orchestrator.AssignAgent` als Laufzeitprüfung, dass ein gesetztes `task.name` in `Session.agents` existiert (ADR-0004).
 - `tools/validate.py` prüft zusätzlich die Semantik von Plänen (eindeutige IDs, Referenzen, Rollen, Zyklen, Agenten) und TAS-Instanzen.
 - `tools/lint.py`: Prüfung der ⫻-Notation und der Neutralität.
-- CI-Workflow `ci/canon.yml` (Ziel: `.github/workflows/canon.yml`, siehe PR).
+- CI-Workflow `.github/workflows/canon.yml` (aktiv seit 93040d7).
 - Negativ-Fixtures in `examples/invalid/`.
 - ADRs 0001–0006 unter `docs/adr/`.
 

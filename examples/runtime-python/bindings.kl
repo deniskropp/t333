@@ -1,5 +1,5 @@
 # NICHT-KANONISCH — Beispiel-Bindings der Python-Runtime
-# referenziert: t333 canon 2.2.0-draft (canon/runtime.kl)
+# referenziert: t333 canon 2.2.0 (canon/runtime.kl)
 # Anbieter, Loader und Dateipfade sind Implementierungsdetails.
 
 concept RuntimeConfig {

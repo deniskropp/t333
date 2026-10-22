@@ -1,7 +1,7 @@
 ⫻kicklang:molecule
 # kernel/molecule/artifact-store
 # target: canon/runtime.kl
-# version: 2.2.0-draft
+# version: 2.2.0
 # status: normative-registration
 
 ⫻context/klmx:Kick/Lang
@@ -40,7 +40,7 @@ role: contract-registration
 
 ⫻data/state:
   registered: true
-  kernel_version: "2.2.0-draft"
+  kernel_version: "2.2.0"
   molecule: "artifact-store"
   abstract: true
 

@@ -9,7 +9,7 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 - **High-fidelity execution** from high-level intent through structured TAS (Task-Agnostic Steps), purification, and orchestration.
 - **Traceability, coherence, and resilience** as first-class concerns.
 
-> **Version**: canon 2.2.0 (`canon/VERSION` = `2.2.0-draft`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
+> **Version**: canon 2.2.0 (`canon/VERSION` = `2.2.0`, Tag `canon-v2.2.0`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
 > **Normative layer**: `canon/` only (see `canon/SPEC.md`); everything else is informative or an example  
 > **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
@@ -31,13 +31,13 @@ This substrate enables **Space Generation** — the rapid bootstrapping of new o
 
 ---
 
-## Normative Runtime Layer (canon 2.2.0-draft)
+## Normative Runtime Layer (canon 2.2.0)
 
 The `canon/` directory contains the **implementierungsneutral** runtime kernel. It defines typed, schema-backed primitives that higher Spaces and flows inherit.
 
 - **`canon/runtime.kl`** — Normative concepts (Error, Result<T,E>, ArtifactStore, Plan, ExecutionContext, Session, LLM, Orchestrator, …)
 - **`canon/schemas/*.schema.json`** — JSON Schema Draft 2020-12 for serializable data concepts
-- **`CHANGES.md`** — Delta from prior informal types to the locked 2.2.0-draft surface
+- **`CHANGES.md`** — Delta from prior informal types to the locked 2.2.0 surface (via 2.2.0-draft)
 
 Key contracts introduced:
 - All fallible operations return `Result<T, Error>` (no free-form error strings or null)
@@ -196,10 +196,10 @@ See full protocol and templates in `docs/`.
 t333/
 ├── README.md                  # Entry point (informative)
 ├── CHANGELOG.md               # Canon change history
-├── CHANGES.md                 # Detailed delta to canon 2.2.0-draft
+├── CHANGES.md                 # Detailed delta to canon 2.2.0
 ├── canon/                     # NORMATIVE layer (neutral, no personas/projects/vendors)
 │   ├── SPEC.md                # Scope, rules, referencing (t333 main), extension namespaces
-│   ├── VERSION                # 2.2.0-draft
+│   ├── VERSION                # 2.2.0
 │   ├── runtime.kl             # Runtime kernel
 │   ├── tas.kl                 # Task-Agnostic Steps
 │   ├── roles.yaml             # Abstract role IDs
@@ -223,7 +223,7 @@ t333/
 ├── tools/
 │   ├── validate.py            # schema + semantic validation
 │   └── lint.py                # ⫻ notation + neutrality checks
-├── ci/canon.yml               # CI workflow (to be moved to .github/workflows/)
+├── .github/workflows/canon.yml # CI: validate.py + lint.py
 └── visualizations/
     └── ocs-kg-explorer.html
 ```
@@ -296,6 +296,6 @@ Use responsibly under ethical oversight (the `ethics-gate` role is always active
 
 Ecosystem status, lineage and roadmap notes (non-normative) live in [`docs/ecosystem-status.md`](docs/ecosystem-status.md).
 
-*Substrate initialized: 2026-05-19 · canon 2.2.0 (2.2.0-draft, 2026-10-21)*
+*Substrate initialized: 2026-05-19 · canon 2.2.0 (2026-10-22)*
 
 **Sigil note:** Canonical section marker is `⫻` (U+2AFB). Previous drafts used multiplication sign (×); normalized here for consistent rendering across editors and parsers.

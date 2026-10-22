@@ -1,6 +1,6 @@
 # OCS Node Architecture
 
-Top-level index of the OCS Node architecture as defined by the normative substrate (canon 2.2.0-draft).
+Top-level index of the OCS Node architecture as defined by the normative substrate (canon 2.2.0).
 
 ## Layers
 
@@ -36,4 +36,4 @@ Bindings (examples/)
 - `canon/runtime.kl`
 - `molecules/`
 - `CHANGES.md`
-- `RELEASE_NOTES_canon-2.2.0-draft.md`
+- `RELEASE_NOTES_canon-2.2.0.md`

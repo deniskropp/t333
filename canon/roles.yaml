@@ -1,5 +1,5 @@
 # t333 canon — abstrakte Rollen (Funktionen)
-# canon-version: 2.2.0-draft
+# canon-version: 2.2.0
 # status: NORMATIV. Enthält bewusst KEINE Persona-, Projekt- oder Anbieternamen.
 # Persona-Belegungen (Default-Profil): examples/profiles/ocs-classic.yaml
 roles:

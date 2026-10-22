@@ -1,7 +1,7 @@
 # Knowledge Space: Normative Runtime Kernel
 
 ## Scope
-Canon 2.2.0-draft (`canon/runtime.kl` + schemas).
+Canon 2.2.0 (`canon/runtime.kl` + schemas).
 
 ## Core Contracts
 - **Result<T, Error>** — Exactly one of `value` or `error` is set. Replaces free-form strings and null.
