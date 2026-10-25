@@ -47,3 +47,7 @@ roles:
   - id: conflict-resolution
     function: "Resolve conflicts between creative and ethical branches"
     triggers: [logic/error:conflict]
+  - id: consent-gate
+    function: "Collect and record explicit principal consent before learning output re-enters the system (canon/learning.kl RequestConsent); never grants consent itself"
+    produces: [data/consent]
+    triggers: [logic/consent]

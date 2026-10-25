@@ -5,8 +5,8 @@ The OCS protocol (⫻ sections) is the meta-communicative interface between user
 
 ## Primary Sections
 - `⫻cmd/` — directives (exec, halt, mode, lang)
-- `⫻data/` — payloads (obj, tas, ptas, state, trace, insight)
-- `⫻logic/` — control and validation
+- `⫻data/` — payloads (obj, tas, ptas, state, trace, insight, consent)
+- `⫻logic/` — control and validation (incl. `⫻logic/consent`, see `canon/learning.kl`)
 - `⫻flow/` — execution sequences
 - `⫻team/` — agent roles
 

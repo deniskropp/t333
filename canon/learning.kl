@@ -1,0 +1,83 @@
+# t333 canon — Consent-Gated Learning Loop
+# canon-version: 2.3.0-draft (unveröffentlicht; Basis canon 2.2.0, ADR-0007)
+# status: NORMATIV (implementierungsneutral)
+# Rollen (canon/roles.yaml): semantic-memory, coordination, workflow-structuring, consent-gate, orchestration;
+#   Veto: ethics-gate, integrity-monitor. Persona-Belegungen nur in Profilen (examples/profiles/).
+# Stufen: learning → meta-learning → meta-iteration → consent-gate → re-ingestion.
+#   Jede Runde ist ein zyklenfreier Plan (SPEC §6). Die Rückkante re-ingestion → learning läuft
+#   über Runden (ExecutionContext.round_num + 1), nie über Task.requires.
+
+# ---------- Daten ----------
+
+concept Principal {
+  description: "The accountable party of a session that alone may grant consent. A principal is never an agent: its id MUST NOT equal the name of any element of Session.agents, and no role from canon/roles.yaml can act as principal."
+  properties: {
+    id: "string"
+  }
+}
+
+concept ConsentRequest {
+  description: "A single, bounded change candidate produced by meta-iteration that asks to re-enter the system."
+  schema_ref: "schemas/consent.schema.json#/$defs/request"
+  properties: {
+    candidate_id: "string",
+    candidate_hash: "string",          # content hash of the exact change; consent binds to this hash (algorithm is binding-defined)
+    kind: "string",                    # "ptas" | "spec" | "prompt_update" | "heuristic"
+    diff: "any",                       # the change relative to the current state
+    evidence: "list<string>",          # Artifact names of the supporting insights
+    round_num: "integer"
+  }
+}
+
+concept ConsentDecision {
+  description: "The recorded outcome of the consent gate for one ConsentRequest."
+  schema_ref: "schemas/consent.schema.json#/$defs/decision"
+  properties: {
+    candidate_id: "string",
+    candidate_hash: "string",
+    decision: "string",                # "approved" | "rejected" | "vetoed" | "expired"
+    decided_by_kind: "string",         # "principal" | "role" | "timeout"
+    decided_by: "string",              # Principal.id, the vetoing role id, or the gate's own role id for "expired"
+    reason: "optional<string>",
+    vetoes: "list<string>",            # role ids from canon/roles.yaml
+    decided_at: "string",              # timestamp, ISO 8601
+    round_num: "integer"
+  }
+  invariant: "decision = approved only if decided_by_kind = principal and vetoes is empty; decision = vetoed only if vetoes is non-empty; silence or timeout yields expired, never approved"
+}
+
+# ---------- Operationen ----------
+
+concept RequestConsent {
+  description: "Presents a ConsentRequest to the principal and to the veto roles and records the outcome. A veto always overrides an approval. Every outcome (approved, rejected, vetoed, expired) is a value, not an error."
+  input: { session: "Session", request: "ConsentRequest" }
+  output: "Result<ConsentDecision, Error>"   # Error only if the gate itself fails, e.g. AddArtifact fails
+  invariant: "the ConsentDecision and its ConsentRequest are stored via AddArtifact before RequestConsent returns: approved under consent/<round_num>/<candidate_id>, all other outcomes under archive/consent/<round_num>/<candidate_id>"
+}
+
+concept ReIngest {
+  description: "Applies exactly one approved ConsentRequest and returns the artifacts that become inputs of the next round. ReIngest is the only canonical path by which learning output re-enters the system. A request of kind prompt_update is applied via CheckNewPrompt using only the approved diff."
+  input: { session: "Session", request: "ConsentRequest", decision: "optional<ConsentDecision>" }
+  output: "Result<list<Artifact>, Error>"
+  # error.code = "consent_missing"    (no decision, or decision.candidate_id != request.candidate_id)
+  #            | "consent_rejected"   (decision.decision != approved: rejected, vetoed or expired)
+  #            | "contract_violation" (decision.candidate_hash != request.candidate_hash, i.e. changed after consent;
+  #                                   or decision.decided_by names an element of Session.agents)
+  invariant: "on success decision.decision = approved and decision.candidate_hash = request.candidate_hash; on any error nothing is applied"
+}
+
+# ---------- Schleife ----------
+
+concept LearningLoop {
+  description: "Consent-gated learning loop. Nothing produced by learning re-enters the system without an approved ConsentDecision."
+  stages: [learning, meta-learning, meta-iteration, consent-gate, re-ingestion]
+  functions: [RequestConsent, ReIngest]
+  invariant: [
+    "Consent is explicit, bound to one candidate_hash and valid for exactly one ReIngest; standing or blanket consent does not exist.",
+    "Only a Principal may approve; ethics-gate and integrity-monitor may veto; a veto overrides an approval; no role can approve.",
+    "Artifacts under archive/consent/ are audit records only and MUST NOT appear in the inputs of a round or in ExecutionContext.artifacts of a learning stage unless a separate, approved ConsentRequest re-ingests them.",
+    "A candidate whose candidate_hash was rejected, vetoed or expired may be submitted again only with changed evidence.",
+    "Prompt updates that originate from a learning stage are applied only through ReIngest; CheckNewPrompts and CheckNewPrompt MUST NOT be applied directly to learning artifacts (insights, ConsentRequest candidates).",
+    "The loop is closed across rounds: the artifacts returned by ReIngest become inputs of round_num + 1 within the same StartWorkflow run (bounded by StartWorkflow.rounds). A non-approved decision re-ingests nothing; a following round, if any, runs on the unchanged state."
+  ]
+}

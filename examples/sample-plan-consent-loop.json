@@ -1,0 +1,90 @@
+{
+  "reasoning": "One round of the consent-gated learning loop (canon/learning.kl). Re-ingestion returns the inputs of the next round (round_num + 1) instead of pointing back to L1, so the plan stays acyclic.",
+  "roles": [
+    {
+      "title": "semantic-memory",
+      "description": "Learning: derive insights from the round's results and trace"
+    },
+    {
+      "title": "coordination",
+      "description": "Meta-learning: evaluate insights across rounds"
+    },
+    {
+      "title": "workflow-structuring",
+      "description": "Meta-iteration: produce one bounded change candidate"
+    },
+    {
+      "title": "ethics-gate",
+      "description": "Veto on ethical grounds"
+    },
+    {
+      "title": "integrity-monitor",
+      "description": "Veto on integrity or bias grounds"
+    },
+    {
+      "title": "consent-gate",
+      "description": "Collect and record the explicit principal decision (RequestConsent)"
+    },
+    {
+      "title": "orchestration",
+      "description": "Re-ingestion: apply the approved candidate (ReIngest) and hand inputs to the next round"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "L1",
+      "task": "Learning: derive insights from the round results",
+      "role": "semantic-memory",
+      "requires": []
+    },
+    {
+      "task_id": "ML1",
+      "task": "Meta-learning: evaluate insights across rounds",
+      "role": "coordination",
+      "requires": [
+        "L1"
+      ]
+    },
+    {
+      "task_id": "MI1",
+      "task": "Meta-iteration: produce one bounded change candidate as ConsentRequest",
+      "role": "workflow-structuring",
+      "requires": [
+        "ML1"
+      ]
+    },
+    {
+      "task_id": "V1",
+      "task": "Validate the candidate for ethics (veto possible)",
+      "role": "ethics-gate",
+      "requires": [
+        "MI1"
+      ]
+    },
+    {
+      "task_id": "V2",
+      "task": "Validate the candidate for integrity and bias (veto possible)",
+      "role": "integrity-monitor",
+      "requires": [
+        "MI1"
+      ]
+    },
+    {
+      "task_id": "CG1",
+      "task": "Consent gate: obtain the explicit principal decision and record it via AddArtifact",
+      "role": "consent-gate",
+      "requires": [
+        "V1",
+        "V2"
+      ]
+    },
+    {
+      "task_id": "RI1",
+      "task": "Re-ingestion: call ReIngest; on a non-approved decision nothing is applied (consent_rejected)",
+      "role": "orchestration",
+      "requires": [
+        "CG1"
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ Dieses Verzeichnis (`canon/`) ist die **neutrale Source of Truth** für alle abg
 |---|---|
 | `runtime.kl` | Runtime-Kern: Result/Error, ArtifactStore, Plan/Task, Session, ExecutionContext, LLM (abstrakt), Agent, Orchestrator |
 | `tas.kl` | Task-Agnostic Steps (TAS): Datenmodell und Lebenszyklus obj → tas → ptas → Plan |
+| `learning.kl` | Consent-gesteuerte Lernschleife: ConsentRequest, ConsentDecision, RequestConsent, ReIngest (ab 2.3.0, ADR-0007) |
 | `roles.yaml` | Abstrakte Rollen-IDs (Funktionen), ohne Personas |
 | `schemas/*.schema.json` | JSON Schema 2020-12 für alle serialisierbaren Datenkonzepte |
 | `VERSION` | Kanon-Version |
@@ -41,4 +42,5 @@ Ein abgeleitetes System ist **canon-konform**, wenn:
 1. seine serialisierten Plan-, Task-, TAS-, Session-, … Instanzen die Schemas erfüllen;
 2. Pläne die Semantikregeln erfüllen: eindeutige `task_id`s, `requires` nur auf vorhandene Tasks und zyklenfrei, `task.role` ∈ `plan.roles`;
 3. die Laufzeitzuweisung `AssignAgent` gilt: Ein gesetztes `task.name` muss in `Session.agents` existieren;
-4. alle fehlbaren Operationen `Result<T, Error>` liefern.
+4. alle fehlbaren Operationen `Result<T, Error>` liefern;
+5. Lernergebnisse nur über `ReIngest` mit einer freigegebenen `ConsentDecision` ins System zurückfließen (`canon/learning.kl`, ab 2.3.0).

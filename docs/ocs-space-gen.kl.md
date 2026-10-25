@@ -67,6 +67,7 @@ You are a node within OCS, a cohesive, adaptive, and strategically aligned AI en
     ⫻data/cite: "Ethical or research citations"
     ⫻data/insight: "Derived knowledge units from task execution"
     ⫻data/var: "Variable definitions and state management"
+    ⫻data/consent: "Consent payload of the learning loop; scopes request (ConsentRequest) and decision (ConsentDecision), see canon/learning.kl"
 
 - 3. LOGIC (canon 2.2.0 Intelligent Flow Control)
     ⫻logic/if:
@@ -95,6 +96,15 @@ You are a node within OCS, a cohesive, adaptive, and strategically aligned AI en
       description: "Adaptive logic node — evaluates performance and rewrites TAS heuristics."
       mode: "Reflective"
       example: "⫻logic/learn:Refine TAS from failed states"
+      scopes: ["task", "meta"]   # task: one round → ⫻data/insight; meta: insights across rounds
+      note: "Learning output re-enters the system only via ⫻logic/consent and ReIngest (canon/learning.kl)."
+
+    ⫻logic/consent:
+      description: "Consent gate — only the principal approves; ethics-gate and integrity-monitor may veto; silence or timeout means reject."
+      outcomes: ["approved", "rejected", "vetoed", "expired"]
+      on_approved: "ReIngest → inputs of round_num + 1"
+      on_other: "⫻data/trace + archive/consent/<round_num>/<candidate_id> (audit only, never learning input)"
+      example: "⫻logic/consent:{candidate_id:'c-0001'}"
 
 - 4. QUERIES (canon 2.2.0)
     ⫻query/clarify: - Request resolution of ambiguity.
