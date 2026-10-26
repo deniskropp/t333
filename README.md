@@ -9,7 +9,7 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 - **High-fidelity execution** from high-level intent through structured TAS (Task-Agnostic Steps), purification, and orchestration.
 - **Traceability, coherence, and resilience** as first-class concerns.
 
-> **Version**: canon 2.2.0 (`canon/VERSION` = `2.2.0`, Tag `canon-v2.2.0`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
+> **Version**: canon 2.3.0 (`canon/VERSION` = `2.3.0`, Tag `canon-v2.3.0`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
 > **Normative layer**: `canon/` only (see `canon/SPEC.md`); everything else is informative or an example  
 > **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
@@ -31,7 +31,7 @@ This substrate enables **Space Generation** — the rapid bootstrapping of new o
 
 ---
 
-## Normative Runtime Layer (canon 2.2.0)
+## Normative Runtime Layer (canon 2.3.0)
 
 The `canon/` directory contains the **implementierungsneutral** runtime kernel. It defines typed, schema-backed primitives that higher Spaces and flows inherit.
 
@@ -79,7 +79,7 @@ See `docs/ocs-space-gen.kl.md` for the complete template and Space generation in
 
 ---
 
-## OCS Protocol (canon 2.2.0)
+## OCS Protocol (canon 2.3.0)
 
 ### 1. Directives (Enhanced Control Layer)
 - `⫻cmd/exec:<agent|team|flow>` — Delegate with flags (`async`, `sync`, `strict`, `collab`)
@@ -96,7 +96,7 @@ Core containers maintained in every Space:
 - `⫻data/state` — Live operational state
 - `⫻data/trace` — Immutable activity log
 - `⫻data/insight` — Derived knowledge from learning cycles
-- `⫻data/consent:request|decision` — Consent candidate and recorded decision of the learning loop (canon 2.3.0-draft, `canon/learning.kl`)
+- `⫻data/consent:request|decision` — Consent candidate and recorded decision of the learning loop (canon 2.3.0, `canon/learning.kl`)
 - `⫻data/logic`, `⫻data/event`, `⫻data/rv`, `⫻data/cite`, `⫻data/var`
 
 ### 3. Logic Primitives
@@ -127,7 +127,7 @@ Normative are the **role IDs** in `canon/roles.yaml`. The persona names below ar
 | `semantic-memory`     | Synapse                       | Inter-agent memory & semantic consistency   | - |
 | `temporal-scheduling` | Chronos                       | Temporal dependencies & scheduling          | - |
 | `conflict-resolution` | Halin                         | Conflict resolution (creative vs ethical)   | - |
-| `consent-gate`        | — (no default persona yet)    | Records explicit principal consent          | canon 2.3.0-draft; never approves itself |
+| `consent-gate`        | — (no default persona yet)    | Records explicit principal consent          | canon 2.3.0; never approves itself |
 
 ### 5. Execution Flows (Swarm+)
 - Standard sequential TAS → ptas → spec → swarm
@@ -201,10 +201,10 @@ t333/
 ├── CHANGES.md                 # Detailed delta to canon 2.2.0
 ├── canon/                     # NORMATIVE layer (neutral, no personas/projects/vendors)
 │   ├── SPEC.md                # Scope, rules, referencing (t333 main), extension namespaces
-│   ├── VERSION                # 2.2.0
+│   ├── VERSION                # 2.3.0
 │   ├── runtime.kl             # Runtime kernel
 │   ├── tas.kl                 # Task-Agnostic Steps
-│   ├── learning.kl            # Consent-gated learning loop (2.3.0-draft)
+│   ├── learning.kl            # Consent-gated learning loop (2.3.0)
 │   ├── roles.yaml             # Abstract role IDs
 │   └── schemas/               # JSON Schema 2020-12
 ├── molecules/                 # Kernel contract molecules
@@ -299,6 +299,6 @@ Use responsibly under ethical oversight (the `ethics-gate` role is always active
 
 Ecosystem status, lineage and roadmap notes (non-normative) live in [`docs/ecosystem-status.md`](docs/ecosystem-status.md).
 
-*Substrate initialized: 2026-05-19 · canon 2.2.0 (2026-10-22)*
+*Substrate initialized: 2026-05-19 · canon 2.3.0 (2026-10-26)*
 
 **Sigil note:** Canonical section marker is `⫻` (U+2AFB). Previous drafts used multiplication sign (×); normalized here for consistent rendering across editors and parsers.

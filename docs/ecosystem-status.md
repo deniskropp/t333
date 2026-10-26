@@ -1,6 +1,6 @@
 # Ecosystem Status (nicht normativ)
 
-> Dieser Text wurde aus dem README hierher verschoben. Er enthält Projekt-, Personen- und Modellbezüge und gehört deshalb nicht zum Kanon (`canon/`). Versionsangaben anderer Systeme (KickLang v4.1+, frühere Labels „OCS v2.1“ und „v3.0“) sind hier rein historisch bzw. ökosystembezogen. Die einzige Kanon-Version ist **canon 2.2.0** (siehe `canon/VERSION`).
+> Dieser Text wurde aus dem README hierher verschoben. Er enthält Projekt-, Personen- und Modellbezüge und gehört deshalb nicht zum Kanon (`canon/`). Versionsangaben anderer Systeme (KickLang v4.1+, frühere Labels „OCS v2.1“ und „v3.0“) sind hier rein historisch bzw. ökosystembezogen. Die einzige Kanon-Version ist **canon 2.3.0** (siehe `canon/VERSION`).
 
 ## Status Update — October 2026 (historisch)
 

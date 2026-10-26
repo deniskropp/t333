@@ -2,9 +2,9 @@
 
 Alle relevanten Änderungen am Kanon (`canon/`). Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/); Versionen nach SemVer (`canon/VERSION`). Abgeleitete Systeme referenzieren `main` (siehe ADR-0005). Details pro Änderung: `CHANGES.md`.
 
-## [2.3.0] — unveröffentlicht
+## [2.3.0] — 2026-10-26
 
-Entwurf für canon 2.3.0 (MINOR: neues Konzept, neue Rolle, neues Schema). `canon/VERSION` bleibt bis zum Release-Commit auf `2.2.0`; neue Dateien tragen `2.3.0-draft`.
+Release von canon 2.3.0 (MINOR: neues Konzept, neue Rolle, neues Schema). Enthält PR #4. `canon/VERSION` = `2.3.0`, Tag `canon-v2.3.0` (wird nach dem Merge auf den Merge-Commit gesetzt). ADR-0007 ist angenommen.
 
 ### Hinzugefügt
 - `canon/learning.kl`: Consent-gesteuerte Lernschleife mit `Principal`, `ConsentRequest`, `ConsentDecision`, `RequestConsent`, `ReIngest` und `LearningLoop` (ADR-0007).

@@ -1,8 +1,8 @@
 ⫻kicklang:molecule
 # kernel/molecule/consent-gated-learning-loop
 # target: canon/learning.kl
-# version: 2.3.0-draft
-# status: proposed-registration (ADR-0007)
+# version: 2.3.0
+# status: registered (ADR-0007)
 
 ⫻context/klmx:Kick/Lang
 layer: kernel
