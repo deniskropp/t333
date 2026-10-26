@@ -1,5 +1,5 @@
 # t333 canon — Consent-Gated Learning Loop
-# canon-version: 2.3.0-draft (unveröffentlicht; Basis canon 2.2.0, ADR-0007)
+# canon-version: 2.3.0
 # status: NORMATIV (implementierungsneutral)
 # Rollen (canon/roles.yaml): semantic-memory, coordination, workflow-structuring, consent-gate, orchestration;
 #   Veto: ethics-gate, integrity-monitor. Persona-Belegungen nur in Profilen (examples/profiles/).

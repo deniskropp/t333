@@ -1,5 +1,5 @@
 # NICHT-KANONISCH — Default-Profil "OCS classic": Persona-Belegung der kanonischen Rollen
-# referenziert: canon/roles.yaml (canon 2.2.0)
+# referenziert: canon/roles.yaml (canon 2.3.0)
 # Abgeleitete Systeme dürfen eigene Profile definieren; der Kanon hängt von keinem Profil ab.
 profile: ocs-classic
 bindings:

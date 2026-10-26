@@ -1,6 +1,6 @@
 # ADR-0007: Consent-gesteuerte Lernschleife
 
-- Status: vorgeschlagen · Datum: 2026-10-25
+- Status: angenommen · Datum: 2026-10-25 · angenommen 2026-10-26 (canon 2.3.0)
 
 ## Kontext
 `⫻logic/learn` („rewrites TAS heuristics“) und `⫻rule/self-adaptation` stehen nur informativ in `docs/ocs-space-gen.kl.md`. Der Kanon hat keinen Begriff dafür, wann Lernergebnisse ins System zurückfließen dürfen. Gleichzeitig wenden `CheckNewPrompts`/`CheckNewPrompt` Prompt-Updates direkt an. Ein Lernzyklus könnte das System also ohne Freigabe umschreiben. Eine Schleife innerhalb eines Plans ist nicht möglich, weil `requires` zyklenfrei sein muss (SPEC §6).
