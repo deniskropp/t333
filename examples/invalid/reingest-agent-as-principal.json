@@ -1,0 +1,27 @@
+{
+  "request": {
+    "candidate_id": "c-0001",
+    "candidate_hash": "sha256:5f2b9c0e1a7d",
+    "kind": "prompt_update",
+    "diff": {
+      "target_agent_name": "engineer-1",
+      "new_system_prompt": "Prefer small, reviewable changes."
+    },
+    "evidence": [
+      "insight/2/l1",
+      "insight/meta/2"
+    ],
+    "round_num": 2
+  },
+  "decision": {
+    "candidate_id": "c-0001",
+    "candidate_hash": "sha256:5f2b9c0e1a7d",
+    "decision": "approved",
+    "decided_by_kind": "principal",
+    "decided_by": "engineer-1",
+    "reason": "Matches review feedback.",
+    "vetoes": [],
+    "decided_at": "2026-10-25T18:00:00Z",
+    "round_num": 2
+  }
+}

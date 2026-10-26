@@ -9,7 +9,7 @@ concept Error {
   description: "Structured error returned instead of free-form error strings."
   schema_ref: "schemas/error.schema.json"
   properties: {
-    code: "string",            # e.g. "llm_unavailable", "invalid_plan", "task_failed", "not_found"
+    code: "string",            # e.g. "llm_unavailable", "invalid_plan", "task_failed", "not_found"; learning loop: "consent_missing", "consent_rejected" (canon/learning.kl)
     message: "string",
     details: "optional<map<string, any>>",
     retryable: "boolean"
@@ -238,13 +238,13 @@ concept StartWorkflow {
 }
 
 concept CheckNewPrompts {
-  description: "Traverses a data structure and applies every prompt update found."
+  description: "Traverses a data structure and applies every prompt update found. Prompt updates that originate from a learning stage are applied only through ReIngest (canon/learning.kl), never directly."
   input: { session: "Session", data_structure: "any" }
   output: "void"
 }
 
 concept CheckNewPrompt {
-  description: "Applies one prompt update to the named agent."
+  description: "Applies one prompt update to the named agent. For prompt updates from a learning stage it is called only by ReIngest with an approved ConsentRequest (canon/learning.kl)."
   input: {
     session: "Session",
     obj: "map<string, any>"   # keys: target_agent_name, new_system_prompt

@@ -9,6 +9,9 @@ Usage:
 Checks for plans: JSON Schema (canon/schemas/plan.schema.json), task_id uniqueness,
 requires -> existing task_id, task.role in plan.roles, requires acyclic,
 and (with a session) task.name (if set) in Session.agents (runtime rule of AssignAgent).
+Consent (canon/learning.kl): ConsentRequest/ConsentDecision instances against consent.schema.json, and
+ReIngest pairs {request, decision} statically: consent_missing, consent_rejected, contract_violation
+(hash mismatch) and, with a session, that the approving principal is not an agent in Session.agents.
 """
 import json, sys, pathlib
 from jsonschema import Draft202012Validator as V
@@ -71,6 +74,22 @@ def semantic(plan, session=None):
     return errs
 
 
+def reingest(doc, session=None):
+    """Static form of the ReIngest preconditions (canon/learning.kl)."""
+    req, dec = doc.get("request") or {}, doc.get("decision")
+    if not dec or dec.get("candidate_id") != req.get("candidate_id"):
+        return ["consent_missing: no ConsentDecision for candidate '%s'" % req.get("candidate_id")]
+    if dec.get("decision") != "approved":
+        return [f"consent_rejected: decision is '{dec.get('decision')}'"]
+    errs = []
+    if dec.get("candidate_hash") != req.get("candidate_hash"):
+        errs.append("contract_violation: candidate_hash changed after consent")
+    agents = {a.get("name") for a in (session or {}).get("agents", [])}
+    if dec.get("decided_by") in agents:
+        errs.append(f"contract_violation: approver '{dec.get('decided_by')}' is an agent, not a principal")
+    return errs
+
+
 def rel(p):
     p = p.resolve()
     return p.relative_to(ROOT) if ROOT in p.parents else p
@@ -86,6 +105,8 @@ def check(paths, validator, session=None, kind="plan"):
         elif kind == "tas":
             ids = [t.get("id") for t in doc] if isinstance(doc, list) else []
             errs += [f"duplicate TAS id '{i}'" for i in {i for i in ids if ids.count(i) > 1}]
+        elif kind == "reingest" and not errs:
+            errs += reingest(doc, session)
         if errs:
             bad += 1
             print(f"FAIL {rel(p)}")
@@ -113,16 +134,29 @@ def main(argv):
     session = json.loads(DEFAULT_SESSION.read_text(encoding="utf-8"))
     sess_v = V(S["session.schema.json"], registry=reg)
     tas_v = V({"type": "array", "items": {"$ref": S["tas.schema.json"]["$id"]}}, registry=reg) if "tas.schema.json" in S else None
+    consent_v = rein_v = None
+    if "consent.schema.json" in S:
+        cid = S["consent.schema.json"]["$id"]
+        consent_v = V(S["consent.schema.json"], registry=reg)
+        rein_v = V({"type": "object", "required": ["request"], "additionalProperties": False,
+                    "properties": {"request": {"$ref": cid + "#/$defs/request"},
+                                   "decision": {"$ref": cid + "#/$defs/decision"}}}, registry=reg)
     print("\n# valid examples (must PASS)")
     bad_valid = check([DEFAULT_SESSION], sess_v, kind="session")
     bad_valid += check(sorted(ROOT.glob("examples/sample-plan*.json")), plan_v, session)
     if tas_v:
         bad_valid += check(sorted(ROOT.glob("examples/sample-tas*.json")), tas_v, kind="tas")
+    if consent_v:
+        bad_valid += check(sorted(ROOT.glob("examples/sample-consent*.json")), consent_v, kind="consent")
+        bad_valid += check(sorted(ROOT.glob("examples/sample-reingest*.json")), rein_v, session, kind="reingest")
     print("\n# invalid fixtures (must FAIL)")
     inv = sorted(ROOT.glob("examples/invalid/*.json"))
-    inv_tas = [p for p in inv if p.name.startswith("tas-")]
-    inv_plan = [p for p in inv if p not in inv_tas]
+    pick = lambda pre: [p for p in inv if p.name.startswith(pre)]
+    inv_tas, inv_con, inv_rein = pick("tas-"), pick("consent-"), pick("reingest-")
+    inv_plan = [p for p in inv if p not in inv_tas + inv_con + inv_rein]
     failed = check(inv_plan, plan_v, session) + (check(inv_tas, tas_v, kind="tas") if tas_v else 0)
+    if consent_v:
+        failed += check(inv_con, consent_v, kind="consent") + check(inv_rein, rein_v, session, kind="reingest")
     ok = bad_valid == 0 and failed == len(inv)
     print(f"\n{'OK' if ok else 'UNEXPECTED'}: valid failing={bad_valid} (expected 0); "
           f"invalid failing={failed} (expected {len(inv)})")

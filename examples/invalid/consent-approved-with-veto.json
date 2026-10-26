@@ -1,0 +1,13 @@
+{
+  "candidate_id": "c-0001",
+  "candidate_hash": "sha256:5f2b9c0e1a7d",
+  "decision": "approved",
+  "decided_by_kind": "principal",
+  "decided_by": "principal-1",
+  "reason": "Matches review feedback.",
+  "vetoes": [
+    "ethics-gate"
+  ],
+  "decided_at": "2026-10-25T18:00:00Z",
+  "round_num": 2
+}

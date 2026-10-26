@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/deniskropp/t333/canon/schemas/consent.schema.json",
+  "title": "Consent",
+  "description": "ConsentRequest and ConsentDecision of the consent-gated learning loop (canon/learning.kl).",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/decision"
+    }
+  ],
+  "$defs": {
+    "roleId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "ptas",
+            "spec",
+            "prompt_update",
+            "heuristic"
+          ]
+        },
+        "diff": {},
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "round_num": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "candidate_id",
+        "candidate_hash",
+        "kind",
+        "diff",
+        "evidence",
+        "round_num"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": [
+            "approved",
+            "rejected",
+            "vetoed",
+            "expired"
+          ]
+        },
+        "decided_by_kind": {
+          "enum": [
+            "principal",
+            "role",
+            "timeout"
+          ]
+        },
+        "decided_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string"
+        },
+        "vetoes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleId"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "round_num": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "candidate_id",
+        "candidate_hash",
+        "decision",
+        "decided_by_kind",
+        "decided_by",
+        "vetoes",
+        "decided_at",
+        "round_num"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "approved"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decided_by_kind": {
+                "const": "principal"
+              },
+              "vetoes": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "vetoed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decided_by_kind": {
+                "const": "role"
+              },
+              "vetoes": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "expired"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decided_by_kind": {
+                "const": "timeout"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "rejected"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decided_by_kind": {
+                "const": "principal"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

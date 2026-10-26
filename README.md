@@ -96,10 +96,11 @@ Core containers maintained in every Space:
 - `⫻data/state` — Live operational state
 - `⫻data/trace` — Immutable activity log
 - `⫻data/insight` — Derived knowledge from learning cycles
+- `⫻data/consent:request|decision` — Consent candidate and recorded decision of the learning loop (canon 2.3.0-draft, `canon/learning.kl`)
 - `⫻data/logic`, `⫻data/event`, `⫻data/rv`, `⫻data/cite`, `⫻data/var`
 
 ### 3. Logic Primitives
-- `⫻logic/if`, `⫻logic/switch`, `⫻logic/loop`, `⫻logic/reconverge`, `⫻logic/learn` (reflective)
+- `⫻logic/if`, `⫻logic/switch`, `⫻logic/loop`, `⫻logic/reconverge`, `⫻logic/learn` (reflective; scopes `:task` / `:meta`), `⫻logic/consent` (consent gate before re-ingestion, `canon/learning.kl`)
 - Monitoring layer: `⫻logic/error` (ethics → `ethics-gate`, bias → `integrity-monitor`, conflict → `conflict-resolution`) and `⫻logic/validate` (integrity checkpoints)
 
 ### 4. Team Roles (Adaptive Agents)
@@ -126,6 +127,7 @@ Normative are the **role IDs** in `canon/roles.yaml`. The persona names below ar
 | `semantic-memory`     | Synapse                       | Inter-agent memory & semantic consistency   | - |
 | `temporal-scheduling` | Chronos                       | Temporal dependencies & scheduling          | - |
 | `conflict-resolution` | Halin                         | Conflict resolution (creative vs ethical)   | - |
+| `consent-gate`        | — (no default persona yet)    | Records explicit principal consent          | canon 2.3.0-draft; never approves itself |
 
 ### 5. Execution Flows (Swarm+)
 - Standard sequential TAS → ptas → spec → swarm
@@ -202,6 +204,7 @@ t333/
 │   ├── VERSION                # 2.2.0
 │   ├── runtime.kl             # Runtime kernel
 │   ├── tas.kl                 # Task-Agnostic Steps
+│   ├── learning.kl            # Consent-gated learning loop (2.3.0-draft)
 │   ├── roles.yaml             # Abstract role IDs
 │   └── schemas/               # JSON Schema 2020-12
 ├── molecules/                 # Kernel contract molecules
