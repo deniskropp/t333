@@ -9,7 +9,7 @@ This repository serves as the cognitive base layer (substrate) upon which specia
 - **High-fidelity execution** from high-level intent through structured TAS (Task-Agnostic Steps), purification, and orchestration.
 - **Traceability, coherence, and resilience** as first-class concerns.
 
-> **Version**: canon 2.3.0 (`canon/VERSION` = `2.3.0`, Tag `canon-v2.3.0`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
+> **Version**: canon 2.3.0 (Tag `canon-v2.3.0`; `main`: `canon/VERSION` = `2.4.0-draft`) — single version line for protocol, kernel and schemas (supersedes the former "OCS v2.1" label)  
 > **Normative layer**: `canon/` only (see `canon/SPEC.md`); everything else is informative or an example  
 > **Related**: Builds upon patterns from t20, t138, t141, t324, t450, t484 and the broader OCS/KickLang skill ecosystem.  
 > **Usage**: Initialize new Spaces, define custom flows, or extend the agent collective.
@@ -201,7 +201,7 @@ t333/
 ├── CHANGES.md                 # Detailed delta to canon 2.2.0
 ├── canon/                     # NORMATIVE layer (neutral, no personas/projects/vendors)
 │   ├── SPEC.md                # Scope, rules, referencing (t333 main), extension namespaces
-│   ├── VERSION                # 2.3.0
+│   ├── VERSION                # 2.4.0-draft
 │   ├── runtime.kl             # Runtime kernel
 │   ├── tas.kl                 # Task-Agnostic Steps
 │   ├── learning.kl            # Consent-gated learning loop (2.3.0)

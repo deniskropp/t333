@@ -2,9 +2,17 @@
 
 Alle relevanten Änderungen am Kanon (`canon/`). Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/); Versionen nach SemVer (`canon/VERSION`). Abgeleitete Systeme referenzieren `main` (siehe ADR-0005). Details pro Änderung: `CHANGES.md`.
 
+## [Unreleased] — 2.4.0-draft
+
+`canon/VERSION` = `2.4.0-draft` (Entwicklungslinie nach dem Release 2.3.0). Letzter Release: `canon-v2.3.0`.
+
+### Geändert
+- Housekeeping: Die Einträge zu 2.2.0 und 2.3.0 nennen die gesetzten Tags jetzt in der Vergangenheitsform mit Commit (`canon-v2.2.0` → 055f4da, `canon-v2.3.0` → bde5cc0).
+- `canon/VERSION` von `2.3.0` auf `2.4.0-draft` angehoben, damit kein weiterer Tag auf einer veralteten Version landet.
+
 ## [2.3.0] — 2026-10-26
 
-Release von canon 2.3.0 (MINOR: neues Konzept, neue Rolle, neues Schema). Enthält PR #4. `canon/VERSION` = `2.3.0`, Tag `canon-v2.3.0` (wird nach dem Merge auf den Merge-Commit gesetzt). ADR-0007 ist angenommen.
+Release von canon 2.3.0 (MINOR: neues Konzept, neue Rolle, neues Schema). Enthält PR #4. `canon/VERSION` = `2.3.0`, Tag `canon-v2.3.0` wurde auf den Merge-Commit bde5cc0 gesetzt. ADR-0007 ist angenommen.
 
 ### Hinzugefügt
 - `canon/learning.kl`: Consent-gesteuerte Lernschleife mit `Principal`, `ConsentRequest`, `ConsentDecision`, `RequestConsent`, `ReIngest` und `LearningLoop` (ADR-0007).
@@ -23,7 +31,7 @@ Release von canon 2.3.0 (MINOR: neues Konzept, neue Rolle, neues Schema). Enthä
 
 ## [2.2.0] — 2026-10-22
 
-Release von canon 2.2.0. Enthält alle Änderungen gegenüber 2.2.0-draft (PR #2). `canon/VERSION` = `2.2.0`, Tag `canon-v2.2.0` (wird nach dem Merge auf den Merge-Commit gesetzt).
+Release von canon 2.2.0. Enthält alle Änderungen gegenüber 2.2.0-draft (PR #2). `canon/VERSION` = `2.2.0`, Tag `canon-v2.2.0` wurde auf den Merge-Commit 055f4da gesetzt.
 
 ### Hinzugefügt
 - `canon/SPEC.md`: Geltungsbereich, Notation, Neutralitätsregeln, Referenzierung über `main`, Namensraum `⫻x-tNNN/`.
