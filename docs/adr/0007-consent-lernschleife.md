@@ -21,4 +21,11 @@
 - MINOR-Version (canon 2.3.0): neues Konzept, neue Rolle, neues Schema. `canon/VERSION` wird erst im Release-Commit angehoben (Muster 2.2.0).
 - `tools/validate.py` prüft `examples/sample-consent*.json`, `examples/sample-reingest*.json` und die Negativ-Fixtures `examples/invalid/consent-*.json` / `reingest-*.json` (`consent_missing`, `consent_rejected`, Hash-Abweichung, Agent als Principal, `approved` mit Veto).
 - Abgeleitete Systeme müssen ihren Lern- bzw. Self-Adaptation-Pfad hinter `RequestConsent`/`ReIngest` legen, um canon-konform zu bleiben (SPEC §6 Regel 5).
-- Offen: `CheckNewPrompts` liefert weiter `void` statt `Result` (Abweichung von SPEC §6 Regel 4); eine Umstellung wäre eine eigene Änderung.
+- `CheckNewPrompts` liefert weiter `void` statt `Result` (Abweichung von SPEC §6 Regel 4). Das gefährdet das Gate nicht, weil lernbedingte Updates nur über `ReIngest` laufen. Die Umstellung auf `Result` ist eine eigene, brechende Änderung mit Migrationshinweis und Tests.
+
+## Geklärte Fragen (2026-10-26)
+- **Persona für `consent-gate`:** Im Kanon gibt es keine. `examples/profiles/ocs-classic.yaml` bekommt vorerst auch keinen Eintrag, sondern erst, wenn ein Profil eine sichtbare Identität braucht.
+- **Verweigerte Zustimmung:** `rejected`, `vetoed` und `expired` sind Gate-Ereignisse, keine gescheiterte Runde. Sie werden nicht re-ingested, und eine folgende Runde läuft auf dem unveränderten Stand. Eine Runde gilt nur dann als gescheitert, wenn die Runtime das ausdrücklich festlegt. Für Auswertungen zählt der Entscheidungsstatus. Der Fehlercode `consent_rejected` entsteht nur, wenn `ReIngest` trotzdem mit einer nicht freigegebenen Entscheidung aufgerufen wird.
+- **`kind`:** Es bleibt bei den vier Werten `ptas`, `spec`, `prompt_update` und `heuristic`.
+- **Vertretung des Principal:** Der Kanon kennt keine Vertretung. Eine delegierte Freigabe gehört in die Profil- bzw. Policy-Schicht, und auch eine Vertretung darf kein Agent sein.
+- **Meta-Learning:** Das ist keine eigene Rolle, sondern eine Aufgabe von `coordination`, dem Fallback-Owner laut `canon/roles.yaml`.
